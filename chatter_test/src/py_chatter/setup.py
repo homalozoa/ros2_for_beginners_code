@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'chatter = py_chatter.chatter:main',
         ],
     },
 )
