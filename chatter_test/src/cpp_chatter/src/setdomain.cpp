@@ -12,28 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef CPP_CHATTER__CHATTER_HPP_
-#define CPP_CHATTER__CHATTER_HPP_
+#include <memory>
 
-#include <unistd.h>
-
-#include <string>
-
+#include "cpp_chatter/chatter.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "sys/types.h"
 
-namespace ros_beginner
+int main(int argc, char ** argv)
 {
-class Chatter : public rclcpp::Node
-{
-public:
-  explicit Chatter(const std::string & chatter_name);
-  ~Chatter();
-  std::string get_chatter_name() const;
+  rclcpp::InitOptions init_option;
+  init_option.set_domain_id(100);
 
-private:
-  std::string chatter_name_;
-  rclcpp::TimerBase::SharedPtr printimer_;
-};
-}  // namespace ros_beginner
-#endif  // CPP_CHATTER__CHATTER_HPP_
+  rclcpp::init(argc, argv, init_option);
+  auto chatter_node = std::make_shared<ros_beginner::Chatter>("cpp_chatter");
+  std::cout << chatter_node->get_node_options().context()->get_domain_id() << std::endl;
+  return 0;
+}
