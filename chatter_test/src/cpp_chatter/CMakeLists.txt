@@ -17,20 +17,38 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
 
-set(executable_name chatter)
+set(executable_chatter chatter)
+set(executable_setdomain setdomain)
 set(library_name ${executable_name}_core)
+set(dependencies
+  rclcpp
+)
+
 include_directories(include)
 
 add_library(${library_name} SHARED
   src/chatter.cpp
 )
 
-add_executable(${executable_name}
-  src/main.cpp
+add_executable(${executable_chatter}
+  src/runchatter.cpp
 )
 
-target_link_libraries(${executable_name}
+add_executable(${executable_setdomain}
+  src/setdomain.cpp
+)
+
+ament_target_dependencies(${library_name}
+  ${dependencies}
+)
+
+target_link_libraries(${executable_chatter}
+  ${library_name}
+)
+
+target_link_libraries(${executable_setdomain}
   ${library_name}
 )
 
@@ -41,7 +59,11 @@ install(TARGETS
   RUNTIME DESTINATION bin
 )
 
-install(TARGETS ${executable_name}
+install(TARGETS ${executable_chatter}
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
+install(TARGETS ${executable_setdomain}
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -56,4 +78,5 @@ endif()
 
 ament_export_include_directories(include)
 ament_export_libraries(${library_name})
+ament_export_dependencies(${dependencies})
 ament_package()
