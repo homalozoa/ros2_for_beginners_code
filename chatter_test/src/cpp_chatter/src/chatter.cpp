@@ -22,7 +22,7 @@ namespace ros_beginner
 {
 using namespace std::chrono_literals;
 Chatter::Chatter(const std::string & chatter_name)
-: Node(chatter_name)
+: rclcpp::Node(chatter_name)
 {
   this->chatter_name_ = chatter_name;
   auto printimer_callback =

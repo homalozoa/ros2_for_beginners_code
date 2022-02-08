@@ -18,18 +18,21 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_lifecycle REQUIRED)
 
 set(executable_chatter chatter)
 set(executable_setdomain setdomain)
 set(library_name ${executable_name}_core)
 set(dependencies
   rclcpp
+  rclcpp_lifecycle
 )
 
 include_directories(include)
 
 add_library(${library_name} SHARED
   src/chatter.cpp
+  src/lifecycle_chatter.cpp
 )
 
 add_executable(${executable_chatter}
