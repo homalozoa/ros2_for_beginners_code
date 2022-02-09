@@ -29,10 +29,8 @@ class Chatter : public rclcpp::Node
 public:
   explicit Chatter(const std::string & chatter_name);
   ~Chatter();
-  std::string get_chatter_name() const;
 
 private:
-  std::string chatter_name_;
   rclcpp::TimerBase::SharedPtr printimer_;
 };
 }  // namespace ros_beginner
