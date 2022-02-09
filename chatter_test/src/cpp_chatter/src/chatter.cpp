@@ -24,11 +24,10 @@ using namespace std::chrono_literals;
 Chatter::Chatter(const std::string & chatter_name)
 : rclcpp::Node(chatter_name)
 {
-  this->chatter_name_ = chatter_name;
   auto printimer_callback =
     [&]() -> void {
       pid_t pid = getpid();
-      std::cout << this->get_chatter_name() << ": pid is " << pid << ", thread id is " <<
+      std::cout << this->get_name() << ": pid is " << pid << ", thread id is " <<
         std::this_thread::get_id() << std::endl;
     };
   printimer_ = this->create_wall_timer(500ms, printimer_callback);
@@ -37,8 +36,4 @@ Chatter::Chatter(const std::string & chatter_name)
 Chatter::~Chatter()
 {}
 
-std::string Chatter::get_chatter_name() const
-{
-  return this->chatter_name_;
-}
 }  // namespace ros_beginner

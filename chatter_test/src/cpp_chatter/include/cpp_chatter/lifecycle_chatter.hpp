@@ -32,18 +32,17 @@ class LifecycleChatter : public rclcpp_lifecycle::LifecycleNode
 public:
   explicit LifecycleChatter(const std::string & chatter_name);
   ~LifecycleChatter();
-  std::string get_chatter_name() const;
 
   // Lifecycle functions
   CallbackReturn_T on_configure(const rclcpp_lifecycle::State & state) override;
-  CallbackReturn_T on_activate(const rclcpp_lifecycle::State &);
-  CallbackReturn_T on_deactivate(const rclcpp_lifecycle::State &);
+  // CallbackReturn_T on_activate(const rclcpp_lifecycle::State &);
+  // CallbackReturn_T on_deactivate(const rclcpp_lifecycle::State &);
   CallbackReturn_T on_cleanup(const rclcpp_lifecycle::State & state) override;
   CallbackReturn_T on_shutdown(const rclcpp_lifecycle::State &);
-  
+
 private:
-  std::string chatter_name_;
   rclcpp::TimerBase::SharedPtr printimer_;
+  void test_func(){}
 };
 }  // namespace ros_beginner
 #endif  // CPP_CHATTER__LIFECYCLE_CHATTER_HPP_

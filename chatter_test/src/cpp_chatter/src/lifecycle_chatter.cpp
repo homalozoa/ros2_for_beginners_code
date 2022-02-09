@@ -23,45 +23,37 @@ namespace ros_beginner
 using namespace std::chrono_literals;
 LifecycleChatter::LifecycleChatter(const std::string & chatter_name)
 : rclcpp_lifecycle::LifecycleNode(chatter_name)
-{
-  this->chatter_name_ = chatter_name;
-}
+{}
 
 LifecycleChatter::~LifecycleChatter()
 {}
 
 CallbackReturn_T LifecycleChatter::on_configure(const rclcpp_lifecycle::State & state)
 {
+  RCLCPP_INFO_ONCE(this->get_logger(), "abc");
+  std::cout << "Configuring node [" << this->get_name() << "]." << std::endl;
   auto printimer_callback =
     [&]() -> void {
       if (this->get_current_state().id() == lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE) {
         pid_t pid = getpid();
-        std::cout << this->get_chatter_name() << ": pid is " << pid << ", thread id is " <<
+        std::cout << this->get_name() << ": pid is " << pid << ", thread id is " <<
           std::this_thread::get_id() << std::endl;
       }
     };
   printimer_ = this->create_wall_timer(500ms, printimer_callback);
-  return CallbackReturn_T::SUCCESS;
-}
-
-CallbackReturn_T LifecycleChatter::on_activate(const rclcpp_lifecycle::State &)
-{
-  return CallbackReturn_T::SUCCESS;
-}
-
-CallbackReturn_T LifecycleChatter::on_deactivate(const rclcpp_lifecycle::State &)
-{
-  return CallbackReturn_T::SUCCESS;
+  return CallbackReturn_T::FAILURE;
 }
 
 CallbackReturn_T LifecycleChatter::on_cleanup(const rclcpp_lifecycle::State & state)
 {
+  std::cout << "Cleaning up node [" << this->get_name() << "]." << std::endl;
   printimer_->cancel();
   return CallbackReturn_T::SUCCESS;
 }
 
 CallbackReturn_T LifecycleChatter::on_shutdown(const rclcpp_lifecycle::State &)
 {
+  std::cout << "Shutting down node [" << this->get_name() << "]." << std::endl;
   if (!printimer_->is_canceled()) {
     printimer_->cancel();
   }
@@ -69,8 +61,4 @@ CallbackReturn_T LifecycleChatter::on_shutdown(const rclcpp_lifecycle::State &)
   return CallbackReturn_T::SUCCESS;
 }
 
-std::string LifecycleChatter::get_chatter_name() const
-{
-  return this->chatter_name_;
-}
 }  // namespace ros_beginner

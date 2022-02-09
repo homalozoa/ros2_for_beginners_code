@@ -18,21 +18,17 @@ from rclpy.node import Node
 
 class Chatter(Node):
 
-    def __init__(self, str):
-        self.name = str
-        super().__init__(self.name)
+    def __init__(self, name):
+        super().__init__(name)
         self.create_timer(0.5, self.timer_callback)
 
     def timer_callback(self):
-        print(self.get_chatter_name())
-
-    def get_chatter_name(self):
-        return self.name
+        print(self.get_name())
 
 
 def main(args=None):
     rclpy.init(args=args, domain_id=100)
-    node = Chatter("py_chatter")
+    node = Chatter('py_chatter')
     print(node.context.get_domain_id())
     executor = rclpy.executors.SingleThreadedExecutor()
     executor.add_node(node)
