@@ -25,7 +25,7 @@ int main(int argc, char ** argv)
   rclcpp::init(argc, argv);
   uint32_t node_count(0);
   bool is_multi(false);
-  std::vector<std::shared_ptr<ros_beginner::LifecycleChatter>> node_vector;
+  std::vector<std::shared_ptr<ros_beginner::Chatter>> node_vector;
   rclcpp::executors::SingleThreadedExecutor executor_s;
   rclcpp::executors::MultiThreadedExecutor executor_m;
 
@@ -49,7 +49,7 @@ int main(int argc, char ** argv)
 
   for (int i = node_count; i--; ) {
     node_vector.push_back(
-      std::make_shared<ros_beginner::LifecycleChatter>(
+      std::make_shared<ros_beginner::Chatter>(
         "cpp_chatter_a_" +
         std::to_string(i)));
     if (is_multi) {executor_m.add_node(node_vector.back()->get_node_base_interface());} else {

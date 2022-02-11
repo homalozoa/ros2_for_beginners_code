@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'chatter = py_chatter.chatter:main',
+            'logtest = py_chatter.logtest:main'
         ],
     },
 )

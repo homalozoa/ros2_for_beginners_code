@@ -24,13 +24,20 @@ using namespace std::chrono_literals;
 Chatter::Chatter(const std::string & chatter_name)
 : rclcpp::Node(chatter_name)
 {
-  auto printimer_callback =
-    [&]() -> void {
-      pid_t pid = getpid();
-      std::cout << this->get_name() << ": pid is " << pid << ", thread id is " <<
-        std::this_thread::get_id() << std::endl;
+  // auto printimer_callback =
+  //   [&]() -> void {
+  //     pid_t pid = getpid();
+  //     std::cout << this->get_name() << ": pid is " << pid << ", thread id is " <<
+  //       std::this_thread::get_id() << std::endl;
+  //   };
+  // printimer_ = this->create_wall_timer(500ms, printimer_callback);
+  auto condition_func =
+    [&](const bool cond) -> bool {
+      return cond;
     };
-  printimer_ = this->create_wall_timer(500ms, printimer_callback);
+  std::function<bool()> condition_func_bind = std::bind(condition_func, true);
+  RCLCPP_INFO(this->get_logger(), "Init node [%s]", this->get_name());
+  RCLCPP_INFO_FUNCTION(this->get_logger(), &condition_func_bind, "func log output");
 }
 
 Chatter::~Chatter()

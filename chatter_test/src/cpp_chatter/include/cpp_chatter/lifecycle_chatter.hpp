@@ -42,7 +42,7 @@ public:
 
 private:
   rclcpp::TimerBase::SharedPtr printimer_;
-  void test_func(){}
+  void test_func() {}
 };
 }  // namespace ros_beginner
 #endif  // CPP_CHATTER__LIFECYCLE_CHATTER_HPP_
