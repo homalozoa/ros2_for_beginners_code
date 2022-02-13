@@ -18,6 +18,7 @@
 #include <unistd.h>
 
 #include <string>
+#include <string_view>  // NOLINT
 
 #include "rclcpp/rclcpp.hpp"
 #include "sys/types.h"
@@ -31,6 +32,15 @@ public:
   ~Chatter();
 
 private:
+  void message_debug(std::string_view tag, std::string_view debug)
+  {
+    RCLCPP_DEBUG_STREAM(this->get_logger(), "[" << tag << "] " << debug);
+  }
+
+  void message_info(std::string_view tag, std::string_view info)
+  {
+    RCLCPP_INFO_STREAM(this->get_logger(), "[" << tag << "] " << info);
+  }
   rclcpp::TimerBase::SharedPtr printimer_;
 };
 }  // namespace ros_beginner

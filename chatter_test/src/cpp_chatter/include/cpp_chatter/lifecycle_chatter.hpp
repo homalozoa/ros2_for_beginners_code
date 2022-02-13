@@ -34,10 +34,10 @@ public:
   ~LifecycleChatter();
 
   // Lifecycle functions
-  CallbackReturn_T on_configure(const rclcpp_lifecycle::State & state) override;
+  CallbackReturn_T on_configure(const rclcpp_lifecycle::State &) override;
   // CallbackReturn_T on_activate(const rclcpp_lifecycle::State &);
   // CallbackReturn_T on_deactivate(const rclcpp_lifecycle::State &);
-  CallbackReturn_T on_cleanup(const rclcpp_lifecycle::State & state) override;
+  CallbackReturn_T on_cleanup(const rclcpp_lifecycle::State &) override;
   CallbackReturn_T on_shutdown(const rclcpp_lifecycle::State &);
 
 private:

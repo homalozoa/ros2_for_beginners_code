@@ -28,7 +28,7 @@ LifecycleChatter::LifecycleChatter(const std::string & chatter_name)
 LifecycleChatter::~LifecycleChatter()
 {}
 
-CallbackReturn_T LifecycleChatter::on_configure(const rclcpp_lifecycle::State & state)
+CallbackReturn_T LifecycleChatter::on_configure(const rclcpp_lifecycle::State &)
 {
   RCLCPP_INFO_ONCE(this->get_logger(), "abc");
   std::cout << "Configuring node [" << this->get_name() << "]." << std::endl;
@@ -44,7 +44,7 @@ CallbackReturn_T LifecycleChatter::on_configure(const rclcpp_lifecycle::State & 
   return CallbackReturn_T::FAILURE;
 }
 
-CallbackReturn_T LifecycleChatter::on_cleanup(const rclcpp_lifecycle::State & state)
+CallbackReturn_T LifecycleChatter::on_cleanup(const rclcpp_lifecycle::State &)
 {
   std::cout << "Cleaning up node [" << this->get_name() << "]." << std::endl;
   printimer_->cancel();

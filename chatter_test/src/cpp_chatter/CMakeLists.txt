@@ -22,6 +22,7 @@ find_package(rclcpp_lifecycle REQUIRED)
 
 set(executable_chatter chatter)
 set(executable_setdomain setdomain)
+set(executable_logtest logtest)
 set(library_name ${executable_name}_core)
 set(dependencies
   rclcpp
@@ -43,6 +44,10 @@ add_executable(${executable_setdomain}
   src/setdomain.cpp
 )
 
+add_executable(${executable_logtest}
+  src/logtest.cpp
+)
+
 ament_target_dependencies(${library_name}
   ${dependencies}
 )
@@ -52,6 +57,10 @@ target_link_libraries(${executable_chatter}
 )
 
 target_link_libraries(${executable_setdomain}
+  ${library_name}
+)
+
+target_link_libraries(${executable_logtest}
   ${library_name}
 )
 
@@ -70,8 +79,16 @@ install(TARGETS ${executable_setdomain}
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
+install(TARGETS ${executable_logtest}
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
 install(DIRECTORY include/
   DESTINATION include/
+)
+
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}/
 )
 
 if(BUILD_TESTING)
