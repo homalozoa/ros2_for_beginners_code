@@ -29,7 +29,7 @@ int main(int argc, char ** argv)
   rclcpp::executors::SingleThreadedExecutor executor_s;
   rclcpp::executors::MultiThreadedExecutor executor_m;
 
-  if (argc == 3) {
+  if (argc >= 3) {
     int input_count = atoi(argv[1]);
     node_count = input_count > 0 ? input_count : 0;
     node_vector.reserve(node_count);
@@ -40,9 +40,12 @@ int main(int argc, char ** argv)
       is_multi = false;
     } else {
       std::cout << "Example: ros2 run cpp_chatter chatter <node_count> s/m" << std::endl;
+      std::cout << "s: single threaded executor" << std::endl;
+      std::cout << "m: multi threaded executor" << std::endl;
       return 0;
     }
   } else {
+    std::cout << argv[0] << argv[1] << argv[2] << argv[0] << std::endl;
     std::cout << "Example: ros2 run cpp_chatter chatter <node_count> s/m" << std::endl;
     return 0;
   }
