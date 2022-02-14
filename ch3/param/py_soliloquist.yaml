@@ -1,0 +1,5 @@
+/py_soliloquist:
+  ros__parameters:
+    output_str: Hello earth
+    time_cycle_s: 1.5
+    use_sim_time: false

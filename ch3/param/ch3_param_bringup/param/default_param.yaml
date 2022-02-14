@@ -1,0 +1,4 @@
+py_soliloquist:
+    ros__parameters:
+        time_cycle_s: 3.0
+        output_str: "Hello Moon"
