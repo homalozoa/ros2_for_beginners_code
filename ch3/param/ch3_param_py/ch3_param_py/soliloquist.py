@@ -16,7 +16,7 @@ import rclpy
 from rclpy.node import Node
 
 
-class Chatter(Node):
+class Soliloquist(Node):
 
     def __init__(self, name):
         super().__init__(name)
@@ -33,7 +33,7 @@ class Chatter(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = Chatter('py_chatter')
+    node = Soliloquist('py_soliloquist')
     executor = rclpy.executors.SingleThreadedExecutor()
     executor.add_node(node)
     executor.spin()
