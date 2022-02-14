@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import rclpy
+import threading
 from rclpy.node import Node
 
 
@@ -23,13 +25,16 @@ class Chatter(Node):
         self.create_timer(0.5, self.timer_callback)
 
     def timer_callback(self):
-        print(self.get_name())
+        self.get_logger().info(
+            'pid is '
+            + str(os.getpid())
+            + ' thread is is '
+            + str(threading.current_thread().ident))
 
 
 def main(args=None):
-    rclpy.init(args=args, domain_id=100)
+    rclpy.init(args=args)
     node = Chatter('py_chatter')
-    print(node.context.get_domain_id())
     executor = rclpy.executors.SingleThreadedExecutor()
     executor.add_node(node)
     executor.spin()
