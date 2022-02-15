@@ -1,3 +1,16 @@
+# Copyright (c) 2022 Homalozoa
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 ARG FROM_IMAGE=amd64/ubuntu:bionic
 ARG gfw=0
 FROM $FROM_IMAGE AS base-image
@@ -73,9 +86,17 @@ RUN pip3 install -U \
   lark-parser && \
   python3 -m pip install -U importlib-metadata importlib-resources numpy
 
-# remove apt cache
-RUN rm -rf /var/lib/apt/lists/*
+# remove cache
+RUN apt-get clean
 
+# setup entrypoint
+RUN echo '#!/bin/bash\n' > /ros_entrypoint.sh && \
+  echo 'set -e\n' >> /ros_entrypoint.sh && \
+  echo '# setup ros2 environment\n' >> /ros_entrypoint.sh && \
+  echo 'source /opt/ros/galactic/setup.sh\n' >> /ros_entrypoint.sh && \
+  echo 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp\n' >> /ros_entrypoint.sh && \
+  echo 'exec "$@"' >> /ros_entrypoint.sh && \
+  chmod +x /ros_entrypoint.sh
+
+ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
-ENV HOME /root
-WORKDIR $HOME

@@ -4,7 +4,7 @@
   <name>ch3_param_bringup</name>
   <version>0.0.1</version>
   <description>Package for testing parameters in Launch</description>
-  <maintainer email="nx.tardis@gmail.com">oreo</maintainer>
+  <maintainer email="nx.tardis@gmail.com">Homalozoa</maintainer>
   <license>Apache-2.0</license>
 
   <test_depend>ament_copyright</test_depend>
