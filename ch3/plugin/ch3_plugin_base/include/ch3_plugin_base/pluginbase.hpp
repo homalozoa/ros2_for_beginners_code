@@ -5,14 +5,14 @@
 
 #include "rclcpp/rclcpp.hpp"
 
-namespace plugintest
+namespace pluginvirtual
 {
 class RealPluginBase
 {
 public:
   ~RealPluginBase(){}
-  virtual say_hello(const uint32_t & times) = 0;
-  virtual say_something(const std::string & something) = 0;
+  void virtual say_hello(const uint32_t & times) = 0;
+  bool virtual say_something(const std::string & something) = 0;
 protected:
   RealPluginBase() = default;
 };
@@ -22,11 +22,11 @@ class FakePluginBase
 {
 public:
   ~FakePluginBase(){}
-  virtual say_hello(const uint32_t & times) = 0;
-  virtual say_something(const SomeT & something) = 0;
+  void virtual say_hello(const uint32_t & times) = 0;
+  bool virtual say_something(const SomeT & something) = 0;
 protected:
   RealPluginBase() = default;
 };
 
-}  // namespace plugintest
+}  // namespace pluginvirtual
 #endif  // CH3_PLUGIN_BASE__PLUGINBASE__HPP_
