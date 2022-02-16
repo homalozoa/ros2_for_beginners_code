@@ -16,5 +16,6 @@
 
   <export>
     <build_type>ament_cmake</build_type>
+    <pluginlib plugin="${prefix}/ch3_plugin_beta.xml" />
   </export>
 </package>

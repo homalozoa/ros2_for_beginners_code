@@ -1,0 +1,5 @@
+<library path="plugin_real">
+  <class name="plugin_real/RealPluginAlpha" type="pluginimplalpha::RealPluginAlpha" base_class_type="pluginvirtual::RealPluginBase">
+    <description>Alpha test plugin</description>
+  </class>
+</library>
