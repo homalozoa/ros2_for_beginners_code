@@ -1,5 +1,0 @@
-<library path="plugin_real">
-  <class name="plugin_real/FakePluginAlpha" type="pluginimplalpha::FakePluginAlpha" base_class_type="pluginvirtual::FakelPluginBase">
-    <description>Alpha fake test plugin</description>
-  </class>
-</library>

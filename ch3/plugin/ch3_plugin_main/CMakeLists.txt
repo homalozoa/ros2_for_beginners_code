@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(ch3_plugin_alpha)
+project(ch3_plugin_main)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -21,24 +21,27 @@ find_package(ch3_plugin_base REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(rclcpp REQUIRED)
 
-set(lib_alpha plugins_alpha)
-set(dependencies
+set(exec_withoutnode run_plugin_withoutnode)
+set(exec_withnode run_plugin_withnode)
+
+add_executable(${exec_withoutnode} src/withoutnode.cpp)
+add_executable(${exec_withnode} src/withnode.cpp)
+
+ament_target_dependencies(${exec_withoutnode}
+  ch3_plugin_base
+  pluginlib
+  rclcpp
+)
+ament_target_dependencies(${exec_withnode}
   ch3_plugin_base
   pluginlib
   rclcpp
 )
 
-add_library(${lib_alpha} SHARED
-  src/pluginalpha.cpp
-)
-
-ament_target_dependencies(${lib_alpha}
-  ${dependencies}
-)
-
 install(
-  TARGETS ${lib_alpha}
-  LIBRARY DESTINATION lib
+  TARGETS ${exec_withoutnode}
+  TARGETS ${exec_withnode}
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)
@@ -46,7 +49,4 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_export_libraries(${lib_alpha})
-ament_export_dependencies(${dependencies})
-pluginlib_export_plugin_description_file(ch3_plugin_base alpha_defines.xml)
 ament_package()
