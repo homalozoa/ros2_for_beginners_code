@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'topic_pub_py = ch4_topic_py.self_node:main',
         ],
     },
 )
