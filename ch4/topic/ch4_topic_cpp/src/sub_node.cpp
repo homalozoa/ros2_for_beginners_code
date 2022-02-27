@@ -25,8 +25,8 @@ public:
   {
     subsciber_ = this->create_subscription<builtin_interfaces::msg::Time>(
       "current_time",
-      rclcpp::SystemDefaultsQoS(),
-      // rclcpp::QoS(0).keep_all().transient_local().reliable(),
+      // rclcpp::SystemDefaultsQoS(),
+      rclcpp::QoS(0).keep_all().transient_local().reliable(),
       std::bind(&SubNode::count_sub_callback, this, std::placeholders::_1));
   }
 
@@ -38,9 +38,9 @@ private:
       this->get_logger(),
       "Sub: Current timestamp is : " <<
         std::to_string(msg->sec) <<
-        " second, " <<
+        " seconds, " <<
         std::to_string(msg->nanosec) <<
-        " nanosecond.");
+        " nanoseconds.");
   }
 };
 

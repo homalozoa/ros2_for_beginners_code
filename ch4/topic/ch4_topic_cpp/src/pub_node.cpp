@@ -26,8 +26,8 @@ public:
     using namespace std::chrono_literals;
     publisher_ = this->create_publisher<builtin_interfaces::msg::Time>(
       "current_time",
-      rclcpp::SystemDefaultsQoS());
-      // rclcpp::QoS(0).keep_all().transient_local().reliable());
+      // rclcpp::SystemDefaultsQoS());
+      rclcpp::QoS(0).keep_all().transient_local().reliable());
     auto topictimer_callback =
       [&]() -> void {
         timestamp_ = this->get_clock()->now();
@@ -35,12 +35,12 @@ public:
           this->get_logger(),
           "pub: Current timestamp is : " <<
             std::to_string(timestamp_.sec) <<
-            " second, " <<
+            " seconds, " <<
             std::to_string(timestamp_.nanosec) <<
-            " nanosecond.");
+            " nanoseconds.");
         publisher_->publish(timestamp_);
       };
-    timer_ = this->create_wall_timer(1ms, topictimer_callback);
+    timer_ = this->create_wall_timer(500ms, topictimer_callback);
   }
 
 private:
@@ -54,6 +54,10 @@ int main(int argc, char ** argv)
   rclcpp::init(argc, argv);
   auto node_ = std::make_shared<PubNode>("topic_pub");
   rclcpp::executors::SingleThreadedExecutor executor_;
+  rclcpp::NodeOptions options;
+  auto context_ = std::make_shared<rclcpp::Context>();
+  options.context(context_);
+  
 
   executor_.add_node(node_);
   executor_.spin();
