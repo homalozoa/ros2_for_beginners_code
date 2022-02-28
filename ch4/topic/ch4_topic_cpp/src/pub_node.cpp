@@ -57,7 +57,7 @@ int main(int argc, char ** argv)
   rclcpp::NodeOptions options;
   auto context_ = std::make_shared<rclcpp::Context>();
   options.context(context_);
-  
+
 
   executor_.add_node(node_);
   executor_.spin();
