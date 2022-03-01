@@ -23,9 +23,11 @@ class PubNodePy(Node):
     def __init__(self, name):
         super().__init__(name)
         self.publisher_ = self.create_publisher(Time, '_current_time', PresetQoS.SYSTEM_DEFAULT)
-        self.subscription_ = self.create_subscription(Time, '_current_time', self.sub_callback, PresetQoS.SYSTEM_DEFAULT)
+        self.subscription_ = self.create_subscription(
+            Time, '_current_time', self.sub_callback, PresetQoS.SYSTEM_DEFAULT)
         timer_period = 0.5
         self.timer = self.create_timer(timer_period, self.timer_callback)
+
     def timer_callback(self):
         msg = self.get_clock().now().to_msg()
         self.publisher_.publish(msg)
@@ -35,6 +37,7 @@ class PubNodePy(Node):
             ' seconds, ' +
             str(msg.nanosec) +
             ' nanoseconds.')
+
     def sub_callback(self, msg):
         self.get_logger().info(
             'sub: Current timestamp is : ' +

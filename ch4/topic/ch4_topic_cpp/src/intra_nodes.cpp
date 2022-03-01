@@ -14,6 +14,8 @@
 
 #include <memory>
 #include <string>
+#include <thread>
+#include <utility>
 
 #include "rclcpp/rclcpp.hpp"
 
@@ -33,11 +35,7 @@ public:
           std::make_unique<builtin_interfaces::msg::Time>(this->get_clock()->now());
         RCLCPP_INFO_STREAM(
           this->get_logger(),
-          "pub: Current timestamp is : " <<
-            std::to_string(timestamp_->sec) <<
-            " seconds, " <<
-            std::to_string(timestamp_->nanosec) <<
-            " nanoseconds." <<
+          "pub: Addr is :" <<
             reinterpret_cast<std::uintptr_t>(timestamp_.get()));
         publisher_->publish(std::move(timestamp_));
       };
@@ -67,26 +65,31 @@ private:
   {
     RCLCPP_INFO_STREAM(
       this->get_logger(),
-      "Sub: Current timestamp is : " <<
-        std::to_string(msg->sec) <<
-        " seconds, " <<
-        std::to_string(msg->nanosec) <<
-        " nanoseconds." <<
+      "Sub: Addr is :" <<
         reinterpret_cast<std::uintptr_t>(msg.get()));
   }
 };
+
+void another_executor()
+{
+  rclcpp::executors::SingleThreadedExecutor executor_;
+  auto sub_node_ = std::make_shared<SubNode>("topic_sub");
+  executor_.add_node(sub_node_);
+  executor_.spin();
+}
 
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto pub_node_ = std::make_shared<PubNode>("topic_pub");
-  auto sub_node_ = std::make_shared<SubNode>("topic_sub");
   rclcpp::executors::SingleThreadedExecutor executor_;
 
+  std::thread another(another_executor);
+
   executor_.add_node(pub_node_);
-  executor_.add_node(sub_node_);
   executor_.spin();
 
+  another.join();
   rclcpp::shutdown();
   return 0;
 }
