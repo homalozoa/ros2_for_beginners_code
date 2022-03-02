@@ -14,6 +14,7 @@ set(executable_sub sub_node)
 set(executable_self self_node)
 set(executable_intra intra_nodes)
 set(executable_loanp loan_pub)
+set(executable_stat  stat_sub)
 
 set(dependencies
   rclcpp
@@ -39,6 +40,10 @@ add_executable(${executable_loanp}
   src/loan_pub.cpp
 )
 
+add_executable(${executable_stat}
+  src/sub_statistics.cpp
+)
+
 ament_target_dependencies(${executable_pub}
   ${dependencies}
 )
@@ -59,12 +64,17 @@ ament_target_dependencies(${executable_loanp}
   ${dependencies}
 )
 
+ament_target_dependencies(${executable_stat}
+  ${dependencies}
+)
+
 install(
   TARGETS ${executable_pub}
   TARGETS ${executable_sub}
   TARGETS ${executable_self}
   TARGETS ${executable_intra}
   TARGETS ${executable_loanp}
+  TARGETS ${executable_stat}
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 

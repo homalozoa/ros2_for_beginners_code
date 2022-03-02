@@ -23,12 +23,15 @@ class PubNode : public rclcpp::Node
 {
 public:
   explicit PubNode(const std::string & node_name)
-  : Node(node_name, rclcpp::NodeOptions().use_intra_process_comms(true))
+  : Node(node_name)
   {
     using namespace std::chrono_literals;
+    auto pub_options = rclcpp::PublisherOptions();
+    pub_options.use_intra_process_comm = rclcpp::IntraProcessSetting::Enable;
     publisher_ = this->create_publisher<builtin_interfaces::msg::Time>(
       "current_time",
-      10);
+      10,
+      pub_options);
     auto topictimer_callback =
       [&]() -> void {
         builtin_interfaces::msg::Time::UniquePtr timestamp_ =
@@ -51,12 +54,16 @@ class SubNode : public rclcpp::Node
 {
 public:
   explicit SubNode(const std::string & node_name)
-  : Node(node_name, rclcpp::NodeOptions().use_intra_process_comms(true))
+  : Node(node_name)
   {
+    auto sub_options = rclcpp::SubscriptionOptions();
+    sub_options.event_callbacks.deadline_callback = [] (rclcpp::QOSDeadlineRequestedInfo& event) -> void { std::cout << "Connection Lost"; };
+    sub_options.use_intra_process_comm = rclcpp::IntraProcessSetting::Enable;
     subsciber_ = this->create_subscription<builtin_interfaces::msg::Time>(
       "current_time",
       10,
-      std::bind(&SubNode::count_sub_callback, this, std::placeholders::_1));
+      std::bind(&SubNode::count_sub_callback, this, std::placeholders::_1),
+      sub_options);
   }
 
 private:
@@ -65,7 +72,7 @@ private:
   {
     RCLCPP_INFO_STREAM(
       this->get_logger(),
-      "Sub: Addr is :" <<
+      "sub: Addr is :" <<
         reinterpret_cast<std::uintptr_t>(msg.get()));
   }
 };
