@@ -22,9 +22,10 @@ class PubNodePy(Node):
 
     def __init__(self, name):
         super().__init__(name)
-        self.publisher_ = self.create_publisher(Time, '_current_time', PresetQoS.SYSTEM_DEFAULT)
+        self.publisher_ = self.create_publisher(Time, '_current_time', 10)
+        self.publisher_.get_subscription_count()
         self.subscription_ = self.create_subscription(
-            Time, '_current_time', self.sub_callback, PresetQoS.SYSTEM_DEFAULT)
+            Time, '_current_time', self.sub_callback, 10)
         timer_period = 0.5
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
