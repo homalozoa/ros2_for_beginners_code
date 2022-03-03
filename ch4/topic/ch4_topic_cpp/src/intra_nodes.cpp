@@ -57,7 +57,6 @@ public:
   : Node(node_name)
   {
     auto sub_options = rclcpp::SubscriptionOptions();
-    sub_options.event_callbacks.deadline_callback = [] (rclcpp::QOSDeadlineRequestedInfo& event) -> void { std::cout << "Connection Lost"; };
     sub_options.use_intra_process_comm = rclcpp::IntraProcessSetting::Enable;
     subsciber_ = this->create_subscription<builtin_interfaces::msg::Time>(
       "current_time",
