@@ -1,4 +1,4 @@
-// Copyright 2022 Homalozoa
+// Copyright (c) 2022 Homalozoa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,10 +25,8 @@ public:
   : Node(node_name)
   {
     auto sub_options = rclcpp::SubscriptionOptions();
-    // sub_options.use_intra_process_comm = rclcpp::IntraProcessSetting::Enable;
     sub_options.topic_stats_options.state = rclcpp::TopicStatisticsState::Enable;
     sub_options.topic_stats_options.publish_period = std::chrono::seconds(10);
-    sub_options.qos_overriding_options.get_id();
     subsciber_ = this->create_subscription<builtin_interfaces::msg::Time>(
       "current_time",
       rclcpp::SystemDefaultsQoS(),

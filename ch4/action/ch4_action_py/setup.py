@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'ch4_service_py'
+package_name = 'ch4_action_py'
 
 setup(
     name=package_name,
@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'self_action_py = ch4_action_py.self_node:main',
         ],
     },
 )
