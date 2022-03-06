@@ -1,4 +1,4 @@
-// Copyright 2022 Homalozoa
+// Copyright (c) 2022 Homalozoa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ public:
       };
     timer_ = this->create_wall_timer(500ms, logtimer_callback);
     server_ = this->create_service<rcl_interfaces::srv::GetParameters>(
-      "set_para",
+      "get_para",
       std::bind(&ServerNode::service_callback, this, std::placeholders::_1, std::placeholders::_2));
   }
 
@@ -45,10 +45,10 @@ private:
     rcl_interfaces::msg::Parameter para_;
     para_.value.bool_value = !request->names.empty();
     response->values.push_back(para_.value);
-    // std::this_thread::sleep_for(std::chrono::seconds(10));
+    // std::this_thread::sleep_for(std::chrono::seconds(3));
     RCLCPP_INFO_STREAM(
       this->get_logger(),
-      "Response: " << std::to_string(response->values[0].bool_value));
+      "Request: " << request->names[0]);
   }
 };
 
@@ -59,11 +59,11 @@ public:
   : Node(node_name)
   {
     using namespace std::chrono_literals;
-    client_ = this->create_client<rcl_interfaces::srv::GetParameters>("set_para");
+    client_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_para");
     auto clientimer_callback =
       [&]() -> void {
         auto req = std::make_unique<rcl_interfaces::srv::GetParameters::Request>();
-        req->names.push_back("abc");
+        req->names.push_back(std::to_string(this->get_clock()->now().seconds()));
         //if (client_->service_is_ready()) {
         RCLCPP_INFO_STREAM(this->get_logger(), "Ready to send req");
         client_->async_send_request(std::move(req));
@@ -90,6 +90,7 @@ int main(int argc, char ** argv)
   auto srv_node_ = std::make_shared<ServerNode>("srv_server");
   auto clt_node_ = std::make_shared<ClientNode>("srv_client");
   rclcpp::executors::SingleThreadedExecutor executor_;
+  // rclcpp::executors::MultiThreadedExecutor executor_;
 
   executor_.add_node(srv_node_);
   executor_.add_node(clt_node_);

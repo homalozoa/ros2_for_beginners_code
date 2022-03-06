@@ -1,0 +1,5 @@
+uint32 goal_count
+---
+uint32 global_count
+---
+uint32 local_count

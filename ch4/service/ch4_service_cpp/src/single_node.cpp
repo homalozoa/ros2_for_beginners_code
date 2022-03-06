@@ -1,4 +1,4 @@
-// Copyright 2022 Homalozoa
+// Copyright (c) 2022 Homalozoa
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,7 +25,8 @@ public:
   : Node(node_name)
   {
     using namespace std::chrono_literals;
-    client_ = this->create_client<rcl_interfaces::srv::GetParameters>("set_para");
+    cb_group_ = this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
+    client_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_para");
     auto clientimer_callback =
       [&]() -> void {
         auto req = std::make_unique<rcl_interfaces::srv::GetParameters::Request>();
@@ -41,8 +42,10 @@ public:
       };
     logtimer_ = this->create_wall_timer(500ms, logtimer_callback);
     server_ = this->create_service<rcl_interfaces::srv::GetParameters>(
-      "set_para",
-      std::bind(&SingleNode::service_callback, this, std::placeholders::_1, std::placeholders::_2));
+      "get_para",
+      std::bind(&SingleNode::service_callback, this, std::placeholders::_1, std::placeholders::_2),
+      rmw_qos_profile_services_default,
+      cb_group_);
   }
 
 private:
@@ -50,6 +53,7 @@ private:
   rclcpp::TimerBase::SharedPtr logtimer_;
   rclcpp::Service<rcl_interfaces::srv::GetParameters>::SharedPtr server_;
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr client_;
+  rclcpp::CallbackGroup::SharedPtr cb_group_;
   void service_callback(
     const std::shared_ptr<rcl_interfaces::srv::GetParameters::Request> request,
     std::shared_ptr<rcl_interfaces::srv::GetParameters::Response> response)
@@ -68,7 +72,7 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto srv_node_ = std::make_shared<SingleNode>("srv_self");
-  rclcpp::executors::SingleThreadedExecutor executor_;
+  rclcpp::executors::MultiThreadedExecutor executor_;
 
   executor_.add_node(srv_node_);
   executor_.spin();
