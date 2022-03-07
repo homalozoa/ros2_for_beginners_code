@@ -1,0 +1,5 @@
+SE3Velocity goal_velocity
+---
+SE3Velocity final_velocity
+---
+SE3Velocity current_velocity
