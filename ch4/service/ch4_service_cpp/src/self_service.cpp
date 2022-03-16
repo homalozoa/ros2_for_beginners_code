@@ -15,6 +15,7 @@
 #include <memory>
 #include <string>
 #include <thread>
+#include <utility>
 
 #include "rclcpp/rclcpp.hpp"
 
@@ -64,11 +65,11 @@ public:
       [&]() -> void {
         auto req = std::make_unique<rcl_interfaces::srv::GetParameters::Request>();
         req->names.push_back(std::to_string(this->get_clock()->now().seconds()));
-        //if (client_->service_is_ready()) {
+        // if (client_->service_is_ready()) {
         RCLCPP_INFO_STREAM(this->get_logger(), "Ready to send req");
         client_->async_send_request(std::move(req));
         RCLCPP_INFO_STREAM(this->get_logger(), "Sent req");
-        //}
+        // }
       };
     clientimer_ = this->create_wall_timer(500ms, clientimer_callback);
     auto logtimer_callback =
