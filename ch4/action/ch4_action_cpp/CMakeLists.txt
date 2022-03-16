@@ -19,6 +19,8 @@ set(dependencies
   ch4_action_interfaces
 )
 
+include_directories(include)
+
 add_executable(${executable_selfnode}
   src/single_node.cpp
 )

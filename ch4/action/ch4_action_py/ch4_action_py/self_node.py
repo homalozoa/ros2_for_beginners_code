@@ -26,8 +26,9 @@ class ActionNodePy(Node):
         super().__init__(name)
         self.global_count_ = 0
         self.callback_group = rclpy.callback_groups.ReentrantCallbackGroup()
-        self.server_ = rclpy.action.ActionServer(self, Count, "sec_count", self.count_callback
-            , callback_group=self.callback_group, cancel_callback=self.cancel_callback)
+        self.server_ = rclpy.action.ActionServer(self, Count, "sec_count", self.count_callback,
+                                                 callback_group=self.callback_group,
+                                                 cancel_callback=self.cancel_callback)
         self.client_ = rclpy.action.ActionClient(self, Count, "sec_count")
         timer_period = 9
         self.timer = self.create_timer(timer_period, self.timer_callback)
@@ -37,7 +38,7 @@ class ActionNodePy(Node):
         goal.goal_count = 3
         self.client_.send_goal_async(goal)
         self.get_logger().info("Send goal: " + str(goal.goal_count))
-    
+
     def cancel_callback(self, goal_handle):
         self.get_logger().info('Received cancel request')
         return rclpy.action.CancelResponse.ACCEPT

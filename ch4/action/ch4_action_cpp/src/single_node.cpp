@@ -15,6 +15,7 @@
 #include <memory>
 #include <string>
 #include <thread>
+#include <utility>
 
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_action/rclcpp_action.hpp"
@@ -24,7 +25,8 @@
 
 class SingleNode : public rclcpp::Node
 {
-using CountT = ch4_action_interfaces::action::Count;
+  using CountT = ch4_action_interfaces::action::Count;
+
 public:
   explicit SingleNode(const std::string & node_name)
   : Node(node_name)
@@ -59,7 +61,8 @@ private:
     const auto goal = server_->get_current_goal();
     rclcpp::Rate loop_rate(1);
     uint32_t local_count = 0;
-    RCLCPP_INFO_STREAM(this->get_logger(),
+    RCLCPP_INFO_STREAM(
+      this->get_logger(),
       "Got goal: " << std::to_string(goal->goal_count));
     while (local_count < goal->goal_count) {
       if (server_->is_cancel_requested()) {

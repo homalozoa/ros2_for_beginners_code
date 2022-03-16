@@ -14,7 +14,6 @@
 
 import rclpy
 from rclpy.node import Node
-from rclpy.qos import QoSPresetProfiles as PresetQoS
 from builtin_interfaces.msg import Time
 
 
