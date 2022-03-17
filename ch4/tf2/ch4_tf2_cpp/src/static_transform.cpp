@@ -30,8 +30,8 @@ public:
     tf_publisher_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
     this->set_transform(
       "world", "map",  // frame ids
-      1, 2, 3,  // translation
-      90, 0, 0);  // rotation
+      1, 1, 1,  // translation
+      0, 0, 0);  // rotation
     // this->set_transform(
     //   argv[1], argv[2],  // frame ids
     //   atof(argv[3]), atof(argv[4]), atof(argv[5]),  // translation
