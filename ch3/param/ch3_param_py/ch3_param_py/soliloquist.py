@@ -14,6 +14,8 @@
 
 import rclpy
 from rclpy.node import Node
+from rcl_interfaces.msg import SetParametersResult
+from rclpy.parameter import Parameter
 
 
 class Soliloquist(Node):
@@ -25,10 +27,17 @@ class Soliloquist(Node):
         self.declare_parameter('output_str', 'hello world')
         self.output_str = self.get_parameter('output_str')
         self.timer_handler = self.create_timer(time_cycle.value, self.timer_callback)
+        self.add_on_set_parameters_callback(self.param_callback)
 
     def timer_callback(self):
-        # output_str = self.get_parameter('output_str')
         self.get_logger().info(self.output_str.value)
+
+    def param_callback(self, data):
+        for parameter in data:
+            if parameter.name == "output_str":
+                if parameter.type_ == Parameter.Type.STRING:
+                    self.output_str = parameter
+        return SetParametersResult(successful=True)
 
 
 def main(args=None):
