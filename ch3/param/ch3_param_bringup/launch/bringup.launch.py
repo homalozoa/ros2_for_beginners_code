@@ -21,7 +21,6 @@ import launch_ros.actions
 
 def generate_launch_description():
     bringup_dir = get_package_share_directory('ch3_param_bringup')
-    
     ld = launch.LaunchDescription()
 
     set_parameter_cmd = launch.actions.DeclareLaunchArgument(
