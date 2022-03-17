@@ -23,12 +23,13 @@
 class StaticTransform : public rclcpp::Node
 {
 public:
-  explicit StaticTransform(const std::string & node_name, char * argv[])
+  explicit StaticTransform(const std::string & node_name)
+  // explicit StaticTransform(const std::string & node_name, char * argv[])
   : Node(node_name)
   {
     tf_publisher_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
     this->set_transform(
-      "world", "robot",  // frame ids
+      "world", "map",  // frame ids
       1, 2, 3,  // translation
       90, 0, 0);  // rotation
     // this->set_transform(
@@ -71,14 +72,15 @@ private:
 
 int main(int argc, char * argv[])
 {
-  if (argc != 9) {
-    RCLCPP_ERROR(
-      rclcpp::get_logger("Notice"),
-      "Usage: ros2 run ch4_tf2_cpp static_transform header_frame child_frame x y z roll pitch yaw");
-    return 1;
-  }
+  // if (argc != 9) {
+  //   RCLCPP_ERROR(
+  //     rclcpp::get_logger("Notice"),
+  //     "Usage: ros2 run ch4_tf2_cpp static_transform header_frame child_frame x y z r p y");
+  //   return 1;
+  // }
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<StaticTransform>("static_tf_node", argv));
+  // rclcpp::spin(std::make_shared<StaticTransform>("static_tf_node", argv));
+  rclcpp::spin(std::make_shared<StaticTransform>("static_tf_node"));
   rclcpp::shutdown();
   return 0;
 }
