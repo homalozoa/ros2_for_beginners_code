@@ -15,6 +15,7 @@
 #include <chrono>
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -38,7 +39,8 @@ public:
   }
 
 private:
-  rcl_interfaces::msg::SetParametersResult param_cb(const std::vector<rclcpp::Parameter> & parameters)
+  rcl_interfaces::msg::SetParametersResult param_cb(
+    const std::vector<rclcpp::Parameter> & parameters)
   {
     auto result = rcl_interfaces::msg::SetParametersResult();
     result.successful = true;
@@ -54,7 +56,7 @@ private:
     geometry_msgs::msg::TransformStamped tf_local_;
     try {
       tf_local_ = tf_buffer_->lookupTransform(
-        "robot", "world",
+        "world", "robot",
         this->get_clock()->now(),
         rclcpp::Duration(std::chrono::milliseconds(tolerance_time_)));
       RCLCPP_INFO_STREAM(
@@ -70,7 +72,7 @@ private:
           " qz: " << std::to_string(tf_local_.transform.rotation.z) <<
           " qw: " << std::to_string(tf_local_.transform.rotation.w));
     } catch (tf2::TransformException & ex) {
-      RCLCPP_ERROR(this->get_logger(), "Could not transform robot to world: %s", ex.what());
+      RCLCPP_ERROR(this->get_logger(), "Could not transform: %s", ex.what());
       return;
     }
   }

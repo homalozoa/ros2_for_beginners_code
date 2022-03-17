@@ -31,7 +31,7 @@ public:
   : Node(node_name)
   {
     using namespace std::chrono_literals;
-    delta_x = 0.0;
+    delta_ = 0.0;
     tf_publisher_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
     tf_timer_ =
       this->create_wall_timer(30ms, std::bind(&DynamicTransform::update_transform, this));
@@ -47,7 +47,7 @@ private:
     trans.header.stamp = now;
     trans.header.frame_id = "map";
     trans.child_frame_id = "robot";
-    trans.transform.translation.x = delta_x;
+    trans.transform.translation.x = delta_;
     trans.transform.translation.y = 0;
     trans.transform.translation.z = 0;
     quat.setRPY(0, 0, 0);
@@ -57,11 +57,11 @@ private:
     trans.transform.rotation.w = quat.w();
 
     tf_publisher_->sendTransform(trans);
-    delta_x += 0.01;
+    delta_ += 0.01;
   }
   std::shared_ptr<tf2_ros::TransformBroadcaster> tf_publisher_;
   rclcpp::TimerBase::SharedPtr tf_timer_;
-  double delta_x;
+  double delta_;
 };
 
 int main(int argc, char * argv[])
