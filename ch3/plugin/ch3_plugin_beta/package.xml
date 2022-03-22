@@ -4,7 +4,7 @@
   <name>ch3_plugin_beta</name>
   <version>0.0.1</version>
   <description>Plugin package for testing plugin</description>
-  <maintainer email="nx.tardis@gmail.com">Homalozoa</maintainer>
+  <maintainer email="nx.tardis@gmail.com">homalozoa</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
