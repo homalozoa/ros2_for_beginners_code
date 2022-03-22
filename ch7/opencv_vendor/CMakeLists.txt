@@ -2,13 +2,11 @@ cmake_minimum_required(VERSION 3.8)
 project(opencv_vendor)
 
 find_package(ament_cmake REQUIRED)
-find_package(OpenCV ${PKG_VER} QUIET)
+find_package(OpenCV QUIET)
 
 if(OpenCV_FOUND)
-  if(OpenCV_VERSION STREQUAL ${PKG_VER})
-    message("OpenCV ${PKG_VER} found")
-    return()
-  endif()
+  message("OpenCV ${OpenCV_VERSION} found, skip building ${PROJECT_NAME}")
+  return()
 endif()
 
 set(EXTPRJ_NAME opencv)
@@ -48,5 +46,3 @@ externalproject_add(
 add_dependencies(${EXTPRJ_NAME} ${EXTPRJ_DEP})
 
 ament_package()
-© 2022 GitHub, Inc.
-Terms
