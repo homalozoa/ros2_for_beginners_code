@@ -1,0 +1,16 @@
+rosbag2_bagfile_information:
+  version: 5
+  storage_identifier: ""
+  duration:
+    nanoseconds: 0
+  starting_time:
+    nanoseconds_since_epoch: 0
+  message_count: 0
+  topics_with_message_count:
+    []
+  compression_format: ""
+  compression_mode: ""
+  relative_file_paths:
+    []
+  files:
+    []
