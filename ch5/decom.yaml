@@ -1,0 +1,6 @@
+output_bags:
+- uri: compressed
+  storage_id: sqlite3
+  all: true
+  compression_mode: file
+  compression_format: zstd
