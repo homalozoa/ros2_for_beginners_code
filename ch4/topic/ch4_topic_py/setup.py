@@ -13,7 +13,7 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='oreo',
+    maintainer='homalozoa',
     maintainer_email='nx.tardis@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
