@@ -8,23 +8,39 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rcpputils REQUIRED)
+find_package(rcutils REQUIRED)
+find_package(rosbag2_cpp REQUIRED)
 
 set(executable_data pubdata)
+set(executable_bag operatebag)
 
 set(dependencies
   rclcpp
+  rcpputils
+  rcutils
+  rosbag2_cpp
 )
 
 add_executable(${executable_data}
   src/pubdata.cpp
 )
 
+add_executable(${executable_bag}
+  src/operatebag.cpp
+)
+
 ament_target_dependencies(${executable_data}
+  ${dependencies}
+)
+
+ament_target_dependencies(${executable_bag}
   ${dependencies}
 )
 
 install(
   TARGETS ${executable_data}
+  TARGETS ${executable_bag}
   DESTINATION lib/${PROJECT_NAME}/
 )
 
