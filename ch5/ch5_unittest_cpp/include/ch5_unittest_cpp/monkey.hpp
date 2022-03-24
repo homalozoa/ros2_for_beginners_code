@@ -12,39 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#ifndef CH5_UNITTEST_CPP__MONKEY_HPP_
+#define CH5_UNITTEST_CPP__MONKEY_HPP_
 #include <memory>
 #include <string>
 
-#include "ch5_unittest_cpp/monkey_raw.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 namespace zoo
 {
-MonkeyNode::MonkeyNode(const int32_t count_init)
+class MonkeyNode : public rclcpp::Node
 {
-  count_bananas_ = count_init;
-}
+public:
+  explicit MonkeyNode(const std::string & node_name, const int32_t count_init = 0);
+  bool add_bananas(const int32_t & bananas);
+  bool eat_bananas(const int32_t & bananas);
+  int32_t check_bananas();
 
-bool MonkeyNode::add_bananas(const int32_t & bananas)
-{
-  count_bananas_ += bananas;
-  return true;
-}
-
-bool MonkeyNode::eat_bananas(const int32_t & bananas)
-{
-  bool rtn;
-  if (count_bananas_ - bananas >= 0) {
-    count_bananas_ -= bananas;
-    rtn = true;
-  } else {
-    rtn = false;
-  }
-  return rtn;
-}
-
-int32_t MonkeyNode::get_bananas()
-{
-  return count_bananas_;
-}
-
+private:
+  int32_t count_bananas_;
+};
 }  // namespace zoo
+#endif  // CH5_UNITTEST_CPP__MONKEY_HPP_
