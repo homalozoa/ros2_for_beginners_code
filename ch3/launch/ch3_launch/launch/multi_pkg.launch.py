@@ -17,20 +17,18 @@ import launch_ros
 
 
 def generate_launch_description():
-    ld = launch.LaunchDescription()
+    exec_cpp = launch_ros.actions.Node(
+        package='ch3_logging_cpp',
+        executable='logger_test',
+        name='log_in_cpp',
+        output='screen')
+    exec_py = launch_ros.actions.Node(
+        package='ch3_logging_py',
+        executable='logger_test',
+        name='log_in_py',
+        output='screen')
 
-    ld.add_action(launch_ros.actions.Node(
-        package='cpp_chatter',
-        executable='chatter',
-        name='chatter_in_cpp',
-        arguments=[
-            launch.substitutions.LaunchConfiguration('node_count'),
-            launch.substitutions.LaunchConfiguration('executor_type')],
-        output='screen'))
-    ld.add_action(launch_ros.actions.Node(
-        package='py_chatter',
-        executable='chatter',
-        name='chatter_in_py3',
-        output='screen'))
-
-    return ld
+    return launch.LaunchDescription([
+        exec_cpp,
+        exec_py
+    ])

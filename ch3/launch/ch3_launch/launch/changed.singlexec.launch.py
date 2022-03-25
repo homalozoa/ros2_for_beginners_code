@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import launch
-import launch_ros.actions
+import launch_ros
 
 
 def generate_launch_description():
@@ -21,20 +21,12 @@ def generate_launch_description():
         'node_count', default_value='1')
     argument_executor_type = launch.actions.DeclareLaunchArgument(
         'executor_type', default_value='s')
-    node_chatter_1 = launch_ros.actions.Node(
-        package='cpp_chatter',
-        executable='chatter',
-        name='chatter_1',
-        exec_name='chatter_first',
-        arguments=[
-            launch.substitutions.LaunchConfiguration('node_count'),
-            launch.substitutions.LaunchConfiguration('executor_type')],
-        output='screen')
-    node_chatter_2 = launch_ros.actions.Node(
-        package='cpp_chatter',
-        executable='chatter',
-        name='chatter_2',
-        exec_name='chatter_second',
+    exec__multi_node = launch_ros.actions.Node(
+        package='ch3_node_cpp',
+        executable='multinode',
+        name='another_multi_node',
+        namespace='new_ns',
+        exec_name='changed_multinode',
         arguments=[
             launch.substitutions.LaunchConfiguration('node_count'),
             launch.substitutions.LaunchConfiguration('executor_type')],
@@ -43,6 +35,5 @@ def generate_launch_description():
     return launch.LaunchDescription([
         argument_node_count,
         argument_executor_type,
-        node_chatter_1,
-        node_chatter_2
+        exec__multi_node,
     ])

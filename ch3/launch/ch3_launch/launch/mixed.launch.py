@@ -38,10 +38,10 @@ def generate_launch_description():
 
     ld.add_action(launch.actions.IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
-            ament_index_python.packages.get_package_share_directory('cpp_chatter'), 'launch'),
-         '/chatter.launch.py'])))
+            ament_index_python.packages.get_package_share_directory('ch3_launch'), 'launch'),
+         '/singlexec.launch.py'])))
     ld.add_action(launch.actions.IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PathJoinSubstitution([
-            FindPackageShare('cpp_chatter'), 'launch', 'chatter.launch.py']))))
+            FindPackageShare('ch3_launch'), 'launch', 'multi_pkg.launch.py']))))
 
     return ld
