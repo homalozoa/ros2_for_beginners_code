@@ -1,10 +1,10 @@
 from setuptools import setup
 
-package_name = 'py_chatter'
+package_name = 'ch3_logging_py'
 
 setup(
     name=package_name,
-    version='0.0.2',
+    version='0.0.1',
     packages=[package_name],
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -15,13 +15,12 @@ setup(
     zip_safe=True,
     maintainer='homalozoa',
     maintainer_email='nx.tardis@gmail.com',
-    description='Chatter wroten in Python',
+    description='Python logging demo.',
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'chatter = py_chatter.chatter:main',
-            'logtest = py_chatter.logtest:main'
+            'logger_test=ch3_logging_py.logger_test:main'
         ],
     },
 )

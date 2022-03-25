@@ -38,7 +38,8 @@ int main(int argc, char ** argv)
     } else if (multi_flag == std::string("s")) {
       is_multi = false;
     } else {
-      std::cout << "Example: ros2 run ch3_node_cpp multilifecyclenode <node_count> s/m" << std::endl;
+      std::cout << "Example: ros2 run ch3_node_cpp multilifecyclenode <node_count> s/m" <<
+        std::endl;
       return 0;
     }
   } else {
