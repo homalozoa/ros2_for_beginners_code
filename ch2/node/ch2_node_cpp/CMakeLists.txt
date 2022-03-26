@@ -20,8 +20,8 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
 
-set(executable_name node2go)
-set(executable_name2 node2go2)
+set(executable_node2go node2go)
+set(executable_node2go2 node2go2)
 set(executable_multinode multinode)
 set(executable_multilifecyclenode multilifecyclenode)
 set(library_node2go nodelib)
@@ -44,10 +44,10 @@ add_library(${library_lifecyclenode} SHARED
   src/lifecyclenode2go.cpp
 )
 
-add_executable(${executable_name}
+add_executable(${executable_node2go}
   src/main.cpp
 )
-add_executable(${executable_name2}
+add_executable(${executable_node2go2}
   src/main2.cpp
 )
 add_executable(${executable_multinode}
@@ -66,10 +66,10 @@ ament_target_dependencies(${library_getid}
 ament_target_dependencies(${library_lifecyclenode}
   ${dependencies}
 )
-ament_target_dependencies(${executable_name}
+ament_target_dependencies(${executable_node2go}
   ${dependencies}
 )
-ament_target_dependencies(${executable_name2}
+ament_target_dependencies(${executable_node2go2}
   ${dependencies}
 )
 ament_target_dependencies(${executable_multinode}
@@ -79,10 +79,10 @@ ament_target_dependencies(${executable_multilifecyclenode}
   ${dependencies}
 )
 
-target_link_libraries(${executable_name}
+target_link_libraries(${executable_node2go}
   ${library_node2go}
 )
-target_link_libraries(${executable_name2}
+target_link_libraries(${executable_node2go2}
   ${library_node2go}
 )
 target_link_libraries(${executable_multinode}
@@ -102,8 +102,8 @@ install(TARGETS
 )
 
 install(
-  TARGETS ${executable_name}
-  TARGETS ${executable_name2}
+  TARGETS ${executable_node2go}
+  TARGETS ${executable_node2go2}
   TARGETS ${executable_multinode}
   TARGETS ${executable_multilifecyclenode}
   RUNTIME DESTINATION lib/${PROJECT_NAME}
