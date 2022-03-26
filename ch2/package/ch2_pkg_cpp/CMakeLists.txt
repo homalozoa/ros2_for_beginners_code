@@ -18,30 +18,30 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 
-set(executable_name pkg2go)
-set(library_name ${executable_name}_core)
+set(executable_pkg2go pkg2go)
+set(library_pkg2go ${executable_pkg2go}_core)
 include_directories(include)
 
-add_library(${library_name} SHARED
+add_library(${library_pkg2go} SHARED
   src/pkg2go.cpp
 )
 
-add_executable(${executable_name}
+add_executable(${executable_pkg2go}
   src/main.cpp
 )
 
-target_link_libraries(${executable_name}
-  ${library_name}
+target_link_libraries(${executable_pkg2go}
+  ${library_pkg2go}
 )
 
 install(TARGETS
-  ${library_name}
+  ${library_pkg2go}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
 )
 
-install(TARGETS ${executable_name}
+install(TARGETS ${executable_pkg2go}
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -55,5 +55,5 @@ if(BUILD_TESTING)
 endif()
 
 ament_export_include_directories(include)
-ament_export_libraries(${library_name})
+ament_export_libraries(${library_pkg2go})
 ament_package()
