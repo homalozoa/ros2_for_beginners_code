@@ -16,7 +16,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 
-int main(int argc, char * argv[])
+int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   using namespace std::chrono_literals;

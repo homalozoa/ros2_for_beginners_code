@@ -3,7 +3,7 @@
 <package format="3">
   <name>ch3_topic_py</name>
   <version>0.0.1</version>
-  <description>TODO: Package description</description>
+  <description>ROS 2 topic demo wroten in Python.</description>
   <maintainer email="nx.tardis@gmail.com">homalozoa</maintainer>
   <license>Apache-2.0</license>
 
