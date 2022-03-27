@@ -24,7 +24,7 @@ class StaticTransform : public rclcpp::Node
 {
 public:
   explicit StaticTransform(const std::string & node_name)
-  // explicit StaticTransform(const std::string & node_name, char * argv[])
+  // explicit StaticTransform(const std::string & node_name, char ** argv)
   : Node(node_name)
   {
     tf_publisher_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
@@ -70,7 +70,7 @@ private:
   std::shared_ptr<tf2_ros::StaticTransformBroadcaster> tf_publisher_;
 };
 
-int main(int argc, char * argv[])
+int main(int argc, char ** argv)
 {
   // if (argc != 9) {
   //   RCLCPP_ERROR(

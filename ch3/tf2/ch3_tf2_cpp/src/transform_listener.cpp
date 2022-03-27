@@ -83,7 +83,7 @@ private:
   rclcpp::node_interfaces::OnSetParametersCallbackHandle::SharedPtr para_handle_;
 };
 
-int main(int argc, char * argv[])
+int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<TransformListener>("tf_listener"));

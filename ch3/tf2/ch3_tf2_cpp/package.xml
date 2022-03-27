@@ -3,7 +3,7 @@
 <package format="3">
   <name>ch3_tf2_cpp</name>
   <version>0.0.1</version>
-  <description>TODO: Package description</description>
+  <description>ROS 2 tf2 demo wroten in C++.</description>
   <maintainer email="nx.tardis@gmail.com">homalozoa</maintainer>
   <license>Apache-2.0</license>
 

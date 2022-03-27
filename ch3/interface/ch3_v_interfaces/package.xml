@@ -3,7 +3,7 @@
 <package format="3">
   <name>ch3_v_interfaces</name>
   <version>0.0.1</version>
-  <description>TODO: Package description</description>
+  <description>ROS 2 interfaces demo. Including description of velocity in SE3.</description>
   <maintainer email="nx.tardis@gmail.com">homalozoa</maintainer>
   <license>Apache-2.0</license>
 
