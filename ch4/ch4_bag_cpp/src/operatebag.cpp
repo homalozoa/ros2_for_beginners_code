@@ -14,6 +14,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/serialization.hpp"
@@ -71,9 +72,15 @@ int main()
     writer.write(time, "/next_time", rclcpp::Clock().now());
 
     // write serialized message with topic name
+    #ifdef DEPRECATED_BAG_API
+    writer.write(
+      *serialized_msg, "/current_next_time", "builtin_interfaces/msg/Time",
+      rclcpp::Clock().now());
+    #else
     writer.write(
       serialized_msg, "/current_next_time", "builtin_interfaces/msg/Time",
       rclcpp::Clock().now());
+    #endif
     RCLCPP_INFO(rclcpp::get_logger(LOGTAG), "Bag is wroten.");
   }
   {

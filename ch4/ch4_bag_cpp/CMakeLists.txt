@@ -12,6 +12,11 @@ find_package(rcpputils REQUIRED)
 find_package(rcutils REQUIRED)
 find_package(rosbag2_cpp REQUIRED)
 
+set(ROS_DISTRO $ENV{ROS_DISTRO})
+if(${ROS_DISTRO} STREQUAL "foxy" OR ${ROS_DISTRO} STREQUAL "galactic")
+  add_compile_definitions(DEPRECATED_BAG_API)
+endif()
+
 set(executable_data pubdata)
 set(executable_bag operatebag)
 
