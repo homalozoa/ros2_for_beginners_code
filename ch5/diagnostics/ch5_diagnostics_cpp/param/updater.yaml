@@ -1,0 +1,15 @@
+analyzers:
+  ros__parameters:
+    path: TemperatureSensor
+    pub_rate: 2.0
+    other_as_errors: false
+    standalone_sensors:
+      type: diagnostic_aggregator/GenericAnalyzer
+      path: SensorStandalone
+      contains: [ '/standalone' ]
+      num_items: 1
+    in_class_sensors:
+      type: diagnostic_aggregator/GenericAnalyzer
+      path: SensorInClass
+      contains: [ '/class' ]
+      num_items: 2
