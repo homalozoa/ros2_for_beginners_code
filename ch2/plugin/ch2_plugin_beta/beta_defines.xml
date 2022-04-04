@@ -1,5 +1,0 @@
-<library path="plugins_beta">
-  <class name="BetaPluginNewName" type="ch2::plugin::PluginBeta" base_class_type="ch2::plugin::PluginBase">
-    <description>Beta test plugin</description>
-  </class>
-</library>
