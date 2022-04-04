@@ -1,8 +1,0 @@
-<library path="plugins_alpha">
-  <class type="ch2::plugin::PluginAlphaA" base_class_type="ch2::plugin::PluginBase">
-    <description>Alpha A plugin</description>
-  </class>
-  <class name="AlphaB" type="ch2::plugin::PluginAlphaB" base_class_type="ch2::plugin::PluginBase">
-    <description>Alpha B plugin</description>
-  </class>
-</library>
