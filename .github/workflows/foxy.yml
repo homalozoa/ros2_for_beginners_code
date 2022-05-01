@@ -12,12 +12,9 @@ jobs:
     steps:
       - name: Setup ROS 2
         uses: ros-tooling/setup-ros@v0.2
+        run: sudo apt-get install ros-foxy-diagnostic-updater
         with:
           required-ros-distributions: foxy
-      - name: Add dependencies
-        run: |
-          apt-get update
-          apt-get install ros-foxy-diagnostic-updater
       - name: build and test
         uses: ros-tooling/action-ros-ci@v0.2
         with:
