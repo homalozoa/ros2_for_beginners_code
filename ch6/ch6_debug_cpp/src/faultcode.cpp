@@ -21,14 +21,14 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   using namespace std::chrono_literals;
-  auto node_a = rclcpp::Node("TestNode");
+  auto node_a = std::make_shared<rclcpp::Node>("TestNode");
   auto executor = std::make_unique<rclcpp::executors::StaticSingleThreadedExecutor>();
   int * int_ptr;
   auto timer_cb = [&]() -> void {
       RCLCPP_INFO_STREAM(rclcpp::get_logger("DebugTest"), std::to_string(*int_ptr));
     };
-  auto timer_ = node_a.create_wall_timer(1s, timer_cb);
-  executor->add_node(node_a.get_node_base_interface());
+  auto timer_ = node_a->create_wall_timer(1s, timer_cb);
+  executor->add_node(node_a->get_node_base_interface());
   executor->spin();
   rclcpp::shutdown();
   return 0;
