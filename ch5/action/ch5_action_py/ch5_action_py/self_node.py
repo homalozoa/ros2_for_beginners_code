@@ -14,11 +14,12 @@
 
 import time
 
+from ch5_action_interfaces.action import Count
+
 import rclpy
 import rclpy.action
 import rclpy.callback_groups
 
-from ch5_action_interfaces.action import Count
 from rclpy.node import Node
 
 
