@@ -88,7 +88,7 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node_n = rclcpp::Node::make_shared("n_node");
-  auto exec = rclcpp::executors::StaticSingleThreadedExecutor();
+  auto exec = std::make_unique<rclcpp::executors::StaticSingleThreadedExecutor>();
   std::default_random_engine generator;
   std::uniform_real_distribution<double> distribution(0, 150);
 
@@ -105,13 +105,13 @@ int main(int argc, char ** argv)
   updater_n.add(sensor_2);
   updater_n.add(sensor_11);
 
-  exec.add_node(node_n);
+  exec->add_node(node_n);
   rclcpp::Rate r(30);
   while (rclcpp::ok()) {
     *temp_sensor_a = distribution(generator);
     *temp_sensor_b = distribution(generator);
     *temp_sensor_c = distribution(generator);
-    exec.spin_some();
+    exec->spin_some();
     r.sleep();
   }
   rclcpp::shutdown();

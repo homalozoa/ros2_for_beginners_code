@@ -30,7 +30,7 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node_n = rclcpp::Node::make_shared("n_node");
-  auto exec = rclcpp::executors::StaticSingleThreadedExecutor();
+  auto exec = std::make_unique<rclcpp::executors::StaticSingleThreadedExecutor>();
 
   diagnostic_updater::Updater updater_n(node_n);
   updater_n.setHardwareID("normal");
@@ -53,10 +53,10 @@ int main(int argc, char ** argv)
     freq_param, ts_param);
   sensor_msgs::msg::Range range;
 
-  exec.add_node(node_n);
+  exec->add_node(node_n);
   rclcpp::Rate r(30);
   while (rclcpp::ok()) {
-    exec.spin_some();
+    exec->spin_some();
     hdls_freq_checker.tick();
     // range.header.stamp = node_n->get_clock()->now();
     // freq_checker.tick(range.header.stamp);

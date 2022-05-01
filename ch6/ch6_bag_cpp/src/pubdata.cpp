@@ -55,12 +55,12 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<PubNode>("topic_pub");
-  rclcpp::executors::StaticSingleThreadedExecutor executor_;
+  auto executor_ = std::make_unique<rclcpp::executors::StaticSingleThreadedExecutor>();
   auto current_time = node->get_clock()->now();
-  executor_.add_node(node);
+  executor_->add_node(node);
   RCLCPP_INFO(node->get_logger(), "Begin.");
   while (node->get_clock()->now() - current_time <= std::chrono::milliseconds(10'000)) {
-    executor_.spin_some();
+    executor_->spin_some();
   }
   RCLCPP_INFO(node->get_logger(), "End.");
   rclcpp::shutdown();

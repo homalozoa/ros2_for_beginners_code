@@ -15,15 +15,15 @@
 
 class Pkg2Go():
 
-    def __init__(self, str):
-        self.name = str
+    def __init__(self, name):
+        self.name = name
 
     def get_pkg2go_name(self):
         return self.name
 
 
 def main(args=None):
-    pkg2go = Pkg2Go("Bye ROS 2.")
+    pkg2go = Pkg2Go('Bye ROS 2.')
     print(pkg2go.get_pkg2go_name())
 
 

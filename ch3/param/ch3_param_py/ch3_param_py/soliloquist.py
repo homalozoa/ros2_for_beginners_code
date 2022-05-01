@@ -13,8 +13,9 @@
 # limitations under the License.
 
 import rclpy
-from rclpy.node import Node
+
 from rcl_interfaces.msg import SetParametersResult
+from rclpy.node import Node
 from rclpy.parameter import Parameter
 
 
