@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import ament_index_python
 import os
+
+import ament_index_python
 import launch
 
 from launch.event_handlers.on_shutdown import OnShutdown

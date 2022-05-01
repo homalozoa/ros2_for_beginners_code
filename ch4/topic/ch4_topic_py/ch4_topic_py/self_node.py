@@ -13,8 +13,9 @@
 # limitations under the License.
 
 import rclpy
-from rclpy.node import Node
+
 from builtin_interfaces.msg import Time
+from rclpy.node import Node
 
 
 class PubNodePy(Node):

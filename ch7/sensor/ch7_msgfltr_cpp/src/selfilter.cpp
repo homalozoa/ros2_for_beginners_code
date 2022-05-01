@@ -119,9 +119,9 @@ int main(int argc, char ** argv)
   app_sync.registerCallback(ts_cb);
 
 
-  rclcpp::executors::StaticSingleThreadedExecutor executor_;
-  executor_.add_node(node);
-  executor_.spin();
+  auto executor_ = std::make_unique<rclcpp::executors::StaticSingleThreadedExecutor>();
+  executor_->add_node(node);
+  executor_->spin();
   rclcpp::shutdown();
   return 0;
 }

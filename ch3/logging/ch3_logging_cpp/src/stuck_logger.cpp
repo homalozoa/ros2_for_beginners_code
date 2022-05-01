@@ -52,9 +52,9 @@ int main(int argc, char ** argv)
   // setvbuf(stdout, NULL, _IONBF, BUFSIZ);
   rclcpp::init(argc, argv);
   auto logger_test = std::make_shared<ros_beginner::LoggerTest>("cpp_log_test");
-  auto executor = rclcpp::executors::StaticSingleThreadedExecutor();
-  executor.add_node(logger_test);
-  executor.spin();
+  auto executor = std::make_unique<rclcpp::executors::StaticSingleThreadedExecutor>();
+  executor->add_node(logger_test);
+  executor->spin();
   rclcpp::shutdown();
   return 0;
 }
