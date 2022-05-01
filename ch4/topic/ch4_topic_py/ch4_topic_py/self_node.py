@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from builtin_interfaces.msg import Time
+
 import rclpy
 
-from builtin_interfaces.msg import Time
 from rclpy.node import Node
 
 

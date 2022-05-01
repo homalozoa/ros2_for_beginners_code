@@ -35,7 +35,7 @@ class Soliloquist(Node):
 
     def param_callback(self, data):
         for parameter in data:
-            if parameter.name == "output_str":
+            if parameter.name == 'output_str':
                 if parameter.type_ == Parameter.Type.STRING:
                     self.output_str = parameter
         return SetParametersResult(successful=True)
