@@ -16,7 +16,8 @@ jobs:
           required-ros-distributions: foxy
       - name: Add dependencies
         run: |
-          apt install ros-foxy-diagnostic-updater
+          apt-get update
+          apt-get install ros-foxy-diagnostic-updater
       - name: build and test
         uses: ros-tooling/action-ros-ci@v0.2
         with:

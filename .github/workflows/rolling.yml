@@ -16,7 +16,8 @@ jobs:
           required-ros-distributions: rolling
       - name: Add dependencies
         run: |
-          apt install ros-rolling-diagnostic-updater
+          apt-get update
+          apt-get install ros-rolling-diagnostic-updater
       - name: build and test
         uses: ros-tooling/action-ros-ci@v0.2
         with:
