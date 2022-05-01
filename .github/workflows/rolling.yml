@@ -12,9 +12,9 @@ jobs:
     steps:
       - name: Setup ROS 2
         uses: ros-tooling/setup-ros@v0.2
-        run: sudo apt-get install ros-rolling-diagnostic-updater
         with:
           required-ros-distributions: rolling
+          package-name: ros-rolling-diagnostic-updater
       - name: build and test
         uses: ros-tooling/action-ros-ci@v0.2
         with:
