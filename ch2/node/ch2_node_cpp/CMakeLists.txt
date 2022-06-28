@@ -24,6 +24,7 @@ set(executable_node2go node2go)
 set(executable_node2go2 node2go2)
 set(executable_multinode multinode)
 set(executable_multilifecyclenode multilifecyclenode)
+set(executable_global_arg globalarg)
 set(library_node2go nodelib)
 set(library_getid getid)
 set(library_lifecyclenode lifecyclenode2go)
@@ -56,6 +57,9 @@ add_executable(${executable_multinode}
 add_executable(${executable_multilifecyclenode}
   src/multilifecyclenode.cpp
 )
+add_executable(${executable_global_arg}
+  src/global_arg.cpp
+)
 
 ament_target_dependencies(${library_node2go}
   ${dependencies}
@@ -76,6 +80,9 @@ ament_target_dependencies(${executable_multinode}
   ${dependencies}
 )
 ament_target_dependencies(${executable_multilifecyclenode}
+  ${dependencies}
+)
+ament_target_dependencies(${executable_global_arg}
   ${dependencies}
 )
 
@@ -106,6 +113,7 @@ install(
   TARGETS ${executable_node2go2}
   TARGETS ${executable_multinode}
   TARGETS ${executable_multilifecyclenode}
+  TARGETS ${executable_global_arg}
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
