@@ -2,8 +2,8 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>ch3_param_cpp</name>
-  <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <version>0.0.1</version>
+  <description>Package for testing parameters in Node</description>
   <maintainer email="nx.tardis@gmail.com">homalozoa</maintainer>
   <license>Apache-2.0</license>
 
