@@ -19,7 +19,7 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='Homalozoa',
+    maintainer='homalozoa',
     maintainer_email='nx.tardis@gmail.com',
     description='Package for testing parameters in Launch',
     license='Apache-2.0',

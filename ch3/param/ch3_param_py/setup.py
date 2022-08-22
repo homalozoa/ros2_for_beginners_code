@@ -18,7 +18,7 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='Homalozoa',
+    maintainer='homalohzoa',
     maintainer_email='nx.tardis@gmail.com',
     description='Package for testing parameters in Node',
     license='Apache-2.0',
