@@ -20,7 +20,7 @@ from rcl_interfaces.msg import Parameter
 from rcl_interfaces.srv import GetParameters
 
 
-class ServiceNode(Node):
+class ServerNode(Node):
 
     def __init__(self, name):
         super().__init__(name)
@@ -59,7 +59,7 @@ class ClientNode(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    srv_node = ServiceNode('service_server')
+    srv_node = ServerNode('service_server')
     cli_node = ClientNode('service_client')
     executor = rclpy.executors.MultiThreadedExecutor()
     executor.add_node(srv_node)
