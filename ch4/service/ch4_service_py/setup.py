@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'singlenode = ch4_service_py.single_node:main',
+            'selfservice = ch4_service_py.self_service:main',
         ],
     },
 )
