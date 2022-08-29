@@ -11,8 +11,8 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(ch5_action_interfaces REQUIRED)
 
-set(executable_selfnode self_node)
-set(executable_wrappednode wrapped_node)
+set(executable_self self_action)
+set(executable_wrapped wrapped_action)
 
 set(dependencies
   rclcpp
@@ -22,27 +22,27 @@ set(dependencies
 
 include_directories(include)
 
-add_executable(${executable_selfnode}
+add_executable(${executable_self}
   src/self_action.cpp
 )
 
-add_executable(${executable_wrappednode}
-  src/wrapped_node.cpp
+add_executable(${executable_wrapped}
+  src/wrapped_action.cpp
 )
 
 ament_target_dependencies(
-  ${executable_selfnode}
+  ${executable_self}
   ${dependencies}
 )
 
 ament_target_dependencies(
-  ${executable_wrappednode}
+  ${executable_wrapped}
   ${dependencies}
 )
 
 install(
-  TARGETS ${executable_selfnode}
-  TARGETS ${executable_wrappednode}
+  TARGETS ${executable_self}
+  TARGETS ${executable_wrapped}
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
