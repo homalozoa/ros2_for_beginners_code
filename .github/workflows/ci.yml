@@ -9,14 +9,13 @@ jobs:
       image: osrf/ros:${{ matrix.ros_distribution }}-desktop
     strategy:
       matrix:
-        os: [ubuntu-22.04]
-        ros_distribution: [humble, rolling]
+        ros_distribution: [foxy, galactic, humble, rolling]
       fail-fast: false
     steps:
       - name: add more dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ros-${{ matrix.ros_distribution }}-diagnostic-updater
+          sudo apt-get install -y python3-colcon-coveragepy-result ros-${{ matrix.ros_distribution }}-diagnostic-updater
       - name: build and test
         uses: ros-tooling/action-ros-ci@v0.2
         with:
