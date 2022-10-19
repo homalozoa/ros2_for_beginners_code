@@ -9,6 +9,7 @@ jobs:
       image: osrf/ros:${{ matrix.ros_distribution }}-desktop
     strategy:
       matrix:
+        os: [ubuntu-22.04]
         ros_distribution: [foxy, galactic, humble, rolling]
       fail-fast: false
     steps:
