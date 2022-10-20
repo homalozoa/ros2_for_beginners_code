@@ -35,14 +35,25 @@ int main()
   rclcpp::Serialization<TimeT> serialization;
   rcpputils::fs::remove_all(rosbag_dir);
   {
+    #ifdef FOXY_BAG_API
+    const rosbag2_cpp::StorageOptions storage_options({rosbag_dir.string(), "sqlite3"});
+    const rosbag2_cpp::ConverterOptions converter_options(
+    	{rmw_get_serialization_format(), rmw_get_serialization_format()});
+    rosbag2_cpp::writers::SequentialWriter writer;
+    #else
     rosbag2_cpp::Writer writer;
+    #endif
     auto serialized_msg = std::make_shared<rclcpp::SerializedMessage>();
     auto write_bag_msg = std::make_shared<rosbag2_storage::SerializedBagMessage>();
     serialization.serialize_message(&time, serialized_msg.get());  // set a time
     auto time2 = time;
     time2.nanosec += time.nanosec;
     serialization.serialize_message(&time2, serialized_msg.get());  // set another time
+    #ifdef FOXY_BAG_API
+    writer.open(storage_options, converter_options);
+    #else
     writer.open(rosbag_dir.string());
+    #endif
     if (rcutils_system_time_now(&write_bag_msg->time_stamp) != RCL_RET_OK) {
       RCLCPP_ERROR(rclcpp::get_logger(LOGTAG), "Get time failed.");
       return 1;
@@ -60,14 +71,26 @@ int main()
       &serialized_msg->get_rcl_serialized_message(), [](rcutils_uint8_array_t *) {});
 
     // write bag message to bag directly
+    #ifdef FOXY_BAG_API
+    rcutils_time_point_value_t ts;
+    if (rcutils_system_time_now(&ts) != RCUTILS_RET_OK) {
+      std::cerr << "Failed getting current time stamp: " <<
+        rcutils_get_error_string().str;
+      return 1;
+    }
+    write_bag_msg->time_stamp = ts;
+    #endif
     writer.write(write_bag_msg);
+    #ifndef FOXY_BAG_API 
     try {
       // false usage
       writer.write(write_bag_msg, "/next_time", "builtin_interfaces/msg/Time");
     } catch (const std::runtime_error & e) {
       std::cerr << e.what() << '\n';
     }
+    #endif
 
+    #ifndef FOXY_BAG_API  // there is no api for foxy
     // write ROS message to bag with topic name
     writer.write(time, "/next_time", rclcpp::Clock().now());
 
@@ -81,11 +104,20 @@ int main()
       serialized_msg, "/current_next_time", "builtin_interfaces/msg/Time",
       rclcpp::Clock().now());
     #endif
+    #endif
     RCLCPP_INFO(rclcpp::get_logger(LOGTAG), "Bag is wroten.");
   }
   {
+    #ifdef FOXY_BAG_API
+    const rosbag2_cpp::StorageOptions storage_options({rosbag_dir.string(), "sqlite3"});
+    const rosbag2_cpp::ConverterOptions converter_options(
+    	{rmw_get_serialization_format(), rmw_get_serialization_format()});
+    rosbag2_cpp::readers::SequentialReader reader;
+    reader.open(storage_options, converter_options);
+    #else
     rosbag2_cpp::Reader reader;
     reader.open(rosbag_dir.string());
+    #endif
     std::vector<std::string> topic_names;
     while (reader.has_next()) {
       auto read_bag_msg = reader.read_next();
