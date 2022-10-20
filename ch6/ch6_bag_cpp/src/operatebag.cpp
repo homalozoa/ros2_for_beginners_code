@@ -38,7 +38,7 @@ int main()
     #ifdef FOXY_BAG_API
     const rosbag2_cpp::StorageOptions storage_options({rosbag_dir.string(), "sqlite3"});
     const rosbag2_cpp::ConverterOptions converter_options(
-    	{rmw_get_serialization_format(), rmw_get_serialization_format()});
+      {rmw_get_serialization_format(), rmw_get_serialization_format()});
     rosbag2_cpp::writers::SequentialWriter writer;
     #else
     rosbag2_cpp::Writer writer;
@@ -81,7 +81,7 @@ int main()
     write_bag_msg->time_stamp = ts;
     #endif
     writer.write(write_bag_msg);
-    #ifndef FOXY_BAG_API 
+    #ifndef FOXY_BAG_API
     try {
       // false usage
       writer.write(write_bag_msg, "/next_time", "builtin_interfaces/msg/Time");
@@ -111,7 +111,7 @@ int main()
     #ifdef FOXY_BAG_API
     const rosbag2_cpp::StorageOptions storage_options({rosbag_dir.string(), "sqlite3"});
     const rosbag2_cpp::ConverterOptions converter_options(
-    	{rmw_get_serialization_format(), rmw_get_serialization_format()});
+      {rmw_get_serialization_format(), rmw_get_serialization_format()});
     rosbag2_cpp::readers::SequentialReader reader;
     reader.open(storage_options, converter_options);
     #else
