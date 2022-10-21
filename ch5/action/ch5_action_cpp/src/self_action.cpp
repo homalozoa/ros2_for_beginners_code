@@ -136,6 +136,25 @@ private:
   rclcpp_action::Client<CountT>::SharedPtr count_client_;
   rclcpp::TimerBase::SharedPtr clientimer_;
 
+  #ifdef FOXY_ACTION_API
+  void goal_response_callback(
+    const std::shared_future<rclcpp_action::ClientGoalHandle<CountT>::SharedPtr> future_handle)
+  {
+    auto goal_handle = future_handle.get();
+    if (!goal_handle) {
+      RCLCPP_WARN_STREAM(
+        this->get_logger(),
+        std::string("Goal was rejected by server."));
+      RCLCPP_INFO(
+        this->get_logger(),
+        "-------------");
+    } else {
+      RCLCPP_INFO_STREAM(
+        this->get_logger(),
+        std::string("Goal was accepted."));
+    }
+  }
+  #else
   void goal_response_callback(
     const rclcpp_action::ClientGoalHandle<CountT>::SharedPtr goal_handle)
   {
@@ -152,6 +171,8 @@ private:
         std::string("Goal was accepted."));
     }
   }
+  #endif
+
   void feedback_response_callback(
     rclcpp_action::ClientGoalHandle<CountT>::SharedPtr,  // goal_handle,
     const std::shared_ptr<const CountT::Feedback> feedback)

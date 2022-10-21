@@ -55,7 +55,7 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<PubNode>("topic_pub");
-  auto executor_ = std::make_unique<rclcpp::executors::StaticSingleThreadedExecutor>();
+  auto executor_ = std::make_unique<rclcpp::executors::SingleThreadedExecutor>();
   auto current_time = node->get_clock()->now();
   executor_->add_node(node);
   RCLCPP_INFO(node->get_logger(), "Begin.");

@@ -11,6 +11,11 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(ch5_action_interfaces REQUIRED)
 
+set(ROS_DISTRO $ENV{ROS_DISTRO})
+if(${ROS_DISTRO} STREQUAL "foxy")
+  add_compile_definitions(FOXY_ACTION_API)
+endif()
+
 set(executable_self self_action)
 set(executable_wrapped wrapped_action)
 
