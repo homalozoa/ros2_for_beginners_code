@@ -9,6 +9,11 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 
+set(ROS_DISTRO $ENV{ROS_DISTRO})
+if(${ROS_DISTRO} STREQUAL "rolling")
+  add_compile_definitions(NEW_SERVICE_TEMPLATE)
+endif()
+
 set(executable_selfservice self_exec)
 set(executable_selfnode self_node)
 
