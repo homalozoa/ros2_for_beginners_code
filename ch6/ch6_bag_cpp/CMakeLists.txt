@@ -49,7 +49,7 @@ ament_target_dependencies(${executable_bag}
 install(
   TARGETS ${executable_data}
   TARGETS ${executable_bag}
-  DESTINATION lib/${PROJECT_NAME}/
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)

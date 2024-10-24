@@ -32,7 +32,7 @@ ament_target_dependencies(${executable_stuck}
 install(
   TARGETS ${executable_test}
   TARGETS ${executable_stuck}
-  DESTINATION lib/${PROJECT_NAME}/
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)

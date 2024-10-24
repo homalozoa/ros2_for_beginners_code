@@ -39,7 +39,7 @@ ament_target_dependencies(${executable_freqchecker}
 install(
   TARGETS ${executable_simpleupdater}
   TARGETS ${executable_freqchecker}
-  DESTINATION lib/${PROJECT_NAME}/
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 install(

@@ -26,7 +26,7 @@ ament_target_dependencies(${executable_debug}
 
 install(
   TARGETS ${executable_debug}
-  DESTINATION lib/${PROJECT_NAME}/
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 install(
