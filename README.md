@@ -5,7 +5,7 @@
 [![ROS 2 Lyrical](https://img.shields.io/badge/ROS_2-Lyrical-22314E?logo=ros)](https://docs.ros.org/en/lyrical/)
 [![ROS 2 Rolling](https://img.shields.io/badge/ROS_2-Rolling-22314E?logo=ros)](https://docs.ros.org/en/rolling/)
 
-![cover](doc/cover.jpg)
+![三位龟形机器人开发者正在协作组装移动机器人](doc/readme-cover.jpg)
 
 ## 一、简介
 
