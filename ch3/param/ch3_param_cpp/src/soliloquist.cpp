@@ -71,7 +71,7 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node_ = std::make_shared<ros_beginner::Soliloquist>();
-  auto exec_ = std::make_shared<rclcpp::executors::StaticSingleThreadedExecutor>();
+  auto exec_ = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
   exec_->add_node(node_->get_node_base_interface());
   exec_->spin();
   rclcpp::shutdown();

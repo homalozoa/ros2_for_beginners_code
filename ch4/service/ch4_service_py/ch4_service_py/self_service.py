@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from rcl_interfaces.msg import Parameter
+from rcl_interfaces.srv import GetParameters
+
 import rclpy
 import rclpy.executors
 
 from rclpy.node import Node
-from rcl_interfaces.msg import Parameter
-from rcl_interfaces.srv import GetParameters
 
 
 class ServerNode(Node):

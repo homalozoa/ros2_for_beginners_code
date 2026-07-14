@@ -28,9 +28,7 @@ add_executable(${executable}
   src/soliloquist.cpp
 )
 
-ament_target_dependencies(${executable}
-  ${dependencies}
-)
+target_link_libraries(${executable} PRIVATE rclcpp::rclcpp)
 
 install(
   TARGETS ${executable}

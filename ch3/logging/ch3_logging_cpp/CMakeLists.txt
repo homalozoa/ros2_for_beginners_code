@@ -22,12 +22,8 @@ add_executable(${executable_stuck}
   src/stuck_logger.cpp
 )
 
-ament_target_dependencies(${executable_test}
-  ${dependencies}
-)
-ament_target_dependencies(${executable_stuck}
-  ${dependencies}
-)
+target_link_libraries(${executable_test} PRIVATE rclcpp::rclcpp)
+target_link_libraries(${executable_stuck} PRIVATE rclcpp::rclcpp)
 
 install(
   TARGETS ${executable_test}

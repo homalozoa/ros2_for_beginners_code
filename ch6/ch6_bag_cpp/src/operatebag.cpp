@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#ifdef JAZZY_NEWER_BAG_API
+#include <filesystem>
+#endif
 #include <memory>
 #include <string>
 #include <vector>
@@ -31,9 +34,17 @@ int main()
   const auto LOGTAG = std::string("OperateBag");
   using TimeT = builtin_interfaces::msg::Time;
   TimeT time = rclcpp::Clock().now();
+  #ifdef JAZZY_NEWER_BAG_API
+  auto rosbag_dir = std::filesystem::path("time_box");
+  #else
   auto rosbag_dir = rcpputils::fs::path("time_box");
+  #endif
   rclcpp::Serialization<TimeT> serialization;
+  #ifdef JAZZY_NEWER_BAG_API
+  std::filesystem::remove_all(rosbag_dir);
+  #else
   rcpputils::fs::remove_all(rosbag_dir);
+  #endif
   {
     #ifdef FOXY_BAG_API
     const rosbag2_cpp::StorageOptions storage_options({rosbag_dir.string(), "sqlite3"});
@@ -54,7 +65,11 @@ int main()
     #else
     writer.open(rosbag_dir.string());
     #endif
+    #ifndef JAZZY_NEWER_BAG_API
     if (rcutils_system_time_now(&write_bag_msg->time_stamp) != RCL_RET_OK) {
+    #else
+    if (rcutils_system_time_now(&write_bag_msg->recv_timestamp) != RCL_RET_OK) {
+    #endif
       RCLCPP_ERROR(rclcpp::get_logger(LOGTAG), "Get time failed.");
       return 1;
     }

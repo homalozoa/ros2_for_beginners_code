@@ -35,20 +35,15 @@ add_executable(${executable_listener}
   src/transform_listener.cpp
 )
 
-ament_target_dependencies(
-  ${executable_static}
-  ${dependencies}
+set(dependency_targets
+  geometry_msgs::geometry_msgs__rosidl_generator_cpp
+  rclcpp::rclcpp
+  tf2::tf2
+  tf2_ros::tf2_ros
 )
-
-ament_target_dependencies(
-  ${executable_dynamic}
-  ${dependencies}
-)
-
-ament_target_dependencies(
-  ${executable_listener}
-  ${dependencies}
-)
+target_link_libraries(${executable_static} PRIVATE ${dependency_targets})
+target_link_libraries(${executable_dynamic} PRIVATE ${dependency_targets})
+target_link_libraries(${executable_listener} PRIVATE ${dependency_targets})
 
 install(
   TARGETS ${executable_static}

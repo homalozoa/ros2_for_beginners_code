@@ -1,5 +1,10 @@
 # ros2_for_beginners_code
 
+[![ROS 2 Humble](https://img.shields.io/badge/ROS_2-Humble-22314E?logo=ros)](https://docs.ros.org/en/humble/)
+[![ROS 2 Jazzy](https://img.shields.io/badge/ROS_2-Jazzy-22314E?logo=ros)](https://docs.ros.org/en/jazzy/)
+[![ROS 2 Lyrical](https://img.shields.io/badge/ROS_2-Lyrical-22314E?logo=ros)](https://docs.ros.org/en/lyrical/)
+[![ROS 2 Rolling](https://img.shields.io/badge/ROS_2-Rolling-22314E?logo=ros)](https://docs.ros.org/en/rolling/)
+
 ![cover](doc/cover.jpg)
 
 ## 一、简介
@@ -8,24 +13,53 @@
 
 ## 二、开发环境配置
 
-为保证能够将项目代码顺利编译、运行、修改及调试，读者需要根据自身当前的软硬件开发环境，对ROS 2进行部署。
+本仓库以 GitHub Actions 的完整构建和测试结果作为版本支持依据，目前支持以下组合：
 
-由于不同操作系统的软件管理机制不同，ROS 2的开发环境搭建需要根据不同的操作系统（Linux、Windows和macOS）进行相应的配置。
+| ROS 2 版本 | 推荐 Ubuntu 版本 | 官方生命周期 | 本仓库 CI |
+| --- | --- | --- | --- |
+| Humble | Jammy 22.04 | LTS，支持至 2027 年 5 月 | ✅ |
+| Jazzy | Noble 24.04 | LTS，支持至 2029 年 5 月 | ✅ |
+| Lyrical | Resolute 26.04 | LTS，支持至 2031 年 5 月 | ✅ |
+| Rolling | Resolute 26.04 | 持续开发版本 | ✅ |
 
-ROS 2相关软件发行分为源码发行与二进制发行两种方式。需要注意的是，源码发行是面向全平台的（Windows，Linux，macOS）且不约束其版本；而二进制发行为了保障适配性，基于不同的操作系统版本，发行了相应的ROS 2的版本，如ROS 2的Foxy发行版首要支持Ubuntu Focal（20.04），macOS Mojave（10.14）和Windows 10。这就要求基于二进制发行版本安装的读者进行版本的对应。
+具体构建矩阵见 [`.github/workflows/ci.yml`](.github/workflows/ci.yml)。Rolling 会随 ROS 2
+上游持续变化，CI 当前使用 `ros2-testing` 软件源验证最新可用软件包，不建议将其作为长期稳定的生产环境基线。
 
-**二进制安装参考说明**：
+ROS 2 Foxy 已于 2023 年 6 月停止官方维护，本仓库不再为 Foxy 提供持续集成和兼容性保证。
+历史代码仍可用于学习，但新项目建议选择上表中的受支持 LTS 版本。
 
-- https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
-- https://docs.ros.org/en/humble/Installation/Alternatives/RHEL-Install-Binary.html
+### 1. 安装 ROS 2
 
-以上网址给出的是Ubuntu下Debian的安装说明，及Humble版本的RPM安装说明。读者需要根据自己的操作系统及ROS 2软件版本需求，在 https://docs.ros.org/ 找到合适的安装说明。
+建议在对应的 Ubuntu 版本上使用官方二进制软件包安装 ROS 2：
 
-**源码安装参考说明**：
+- [Humble / Ubuntu Jammy 安装说明](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
+- [Jazzy / Ubuntu Noble 安装说明](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html)
+- [Lyrical / Ubuntu Resolute 安装说明](https://docs.ros.org/en/lyrical/Installation/Ubuntu-Install-Debs.html)
+- [Rolling / Ubuntu Resolute 安装说明](https://docs.ros.org/en/rolling/Installation/Ubuntu-Install-Debs.html)
 
-- https://docs.ros.org/en/humble/Installation/Ubuntu-Development-Setup.html
+Windows、macOS 及源码安装方式请从对应版本的官方安装页面进入；本仓库当前只对上表中的 Ubuntu
+组合提供自动化构建保证。此部分可结合书中 1.1.3～1.1.4 节完成。
 
-此部分可结合书中1.1.3~1.1.4完成.
+### 2. 构建与测试本仓库
+
+安装 ROS 2、`ros-dev-tools` 和 `colcon` 后，可创建独立工作空间进行构建：
+
+```bash
+source /opt/ros/$ROS_DISTRO/setup.bash
+
+mkdir -p ~/ros2_ws/src
+git clone https://github.com/homalozoa/ros2_for_beginners_code.git \
+  ~/ros2_ws/src/ros2_for_beginners_code
+cd ~/ros2_ws
+
+rosdep install --from-paths src --ignore-src --rosdistro "$ROS_DISTRO" -r -y
+colcon build --symlink-install
+colcon test
+colcon test-result --verbose
+```
+
+每次打开新终端时，都需要先加载对应 ROS 2 环境；构建完成后再执行
+`source ~/ros2_ws/install/setup.bash` 即可运行本仓库中的节点和示例。
 
 ## 三、示例代码简介
 

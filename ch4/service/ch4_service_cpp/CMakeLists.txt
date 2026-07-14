@@ -24,15 +24,12 @@ add_executable(${executable_selfnode}
   src/single_node.cpp
 )
 
-ament_target_dependencies(
-  ${executable_selfservice}
-  ${dependencies}
-)
+target_link_libraries(${executable_selfservice} PRIVATE rclcpp::rclcpp)
+target_link_libraries(${executable_selfnode} PRIVATE rclcpp::rclcpp)
 
-ament_target_dependencies(
-  ${executable_selfnode}
-  ${dependencies}
-)
+if(rclcpp_VERSION VERSION_LESS "21.0.0")
+  target_compile_definitions(${executable_selfnode} PRIVATE RCLCPP_SERVICE_USES_RMW_QOS)
+endif()
 
 install(
   TARGETS ${executable_selfservice}

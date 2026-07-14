@@ -35,15 +35,14 @@ add_executable(${executable_wrapped}
   src/wrapped_action.cpp
 )
 
-ament_target_dependencies(
-  ${executable_self}
-  ${dependencies}
+set(dependency_targets
+  rclcpp::rclcpp
+  rclcpp_action::rclcpp_action
+  ch5_action_interfaces::ch5_action_interfaces__rosidl_generator_cpp
+  ch5_action_interfaces::ch5_action_interfaces__rosidl_typesupport_cpp
 )
-
-ament_target_dependencies(
-  ${executable_wrapped}
-  ${dependencies}
-)
+target_link_libraries(${executable_self} PRIVATE ${dependency_targets})
+target_link_libraries(${executable_wrapped} PRIVATE ${dependency_targets})
 
 install(
   TARGETS ${executable_self}

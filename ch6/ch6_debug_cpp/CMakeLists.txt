@@ -20,9 +20,7 @@ add_executable(${executable_debug}
   src/faultcode.cpp
 )
 
-ament_target_dependencies(${executable_debug}
-  ${dependencies}
-)
+target_link_libraries(${executable_debug} PRIVATE rclcpp::rclcpp)
 
 install(
   TARGETS ${executable_debug}

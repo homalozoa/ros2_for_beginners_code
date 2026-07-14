@@ -30,7 +30,7 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node_n = rclcpp::Node::make_shared("n_node");
-  auto exec = std::make_unique<rclcpp::executors::StaticSingleThreadedExecutor>();
+  auto exec = std::make_unique<rclcpp::executors::SingleThreadedExecutor>();
 
   diagnostic_updater::Updater updater_n(node_n);
   updater_n.setHardwareID("normal");
