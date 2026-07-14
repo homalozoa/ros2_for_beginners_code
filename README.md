@@ -1,5 +1,6 @@
 # ros2_for_beginners_code
 
+[![ROS 2 Humble](https://img.shields.io/badge/ROS_2-Humble-22314E?logo=ros)](https://docs.ros.org/en/humble/)
 [![ROS 2 Jazzy](https://img.shields.io/badge/ROS_2-Jazzy-22314E?logo=ros)](https://docs.ros.org/en/jazzy/)
 [![ROS 2 Lyrical](https://img.shields.io/badge/ROS_2-Lyrical-22314E?logo=ros)](https://docs.ros.org/en/lyrical/)
 [![ROS 2 Rolling](https://img.shields.io/badge/ROS_2-Rolling-22314E?logo=ros)](https://docs.ros.org/en/rolling/)
@@ -14,6 +15,7 @@
 
 本仓库持续集成支持以下 ROS 2 / Ubuntu 组合：
 
+- ROS 2 Humble / Ubuntu Jammy 22.04
 - ROS 2 Jazzy / Ubuntu Noble 24.04
 - ROS 2 Lyrical / Ubuntu Resolute 26.04
 - ROS 2 Rolling / Ubuntu Resolute 26.04

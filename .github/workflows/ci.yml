@@ -18,6 +18,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - ros_distribution: humble
+            ubuntu_codename: jammy
+            use_ros2_testing: false
           - ros_distribution: jazzy
             ubuntu_codename: noble
             use_ros2_testing: false
