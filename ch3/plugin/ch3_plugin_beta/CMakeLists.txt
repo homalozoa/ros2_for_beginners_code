@@ -31,8 +31,10 @@ set(dependencies
 add_library(${lib_beta} SHARED
   src/pluginbeta.cpp)
 
-ament_target_dependencies(${lib_beta}
-  ${dependencies}
+target_link_libraries(${lib_beta} PUBLIC
+  ch3_plugin_base::ch3_plugin_base
+  pluginlib::pluginlib
+  rclcpp::rclcpp
 )
 
 if(BUILD_TESTING)

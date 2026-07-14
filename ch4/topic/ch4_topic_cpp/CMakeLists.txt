@@ -44,29 +44,12 @@ add_executable(${executable_stat}
   src/sub_statistics.cpp
 )
 
-ament_target_dependencies(${executable_pub}
-  ${dependencies}
-)
-
-ament_target_dependencies(${executable_sub}
-  ${dependencies}
-)
-
-ament_target_dependencies(${executable_self}
-  ${dependencies}
-)
-
-ament_target_dependencies(${executable_intra}
-  ${dependencies}
-)
-
-ament_target_dependencies(${executable_loanp}
-  ${dependencies}
-)
-
-ament_target_dependencies(${executable_stat}
-  ${dependencies}
-)
+target_link_libraries(${executable_pub} PRIVATE rclcpp::rclcpp)
+target_link_libraries(${executable_sub} PRIVATE rclcpp::rclcpp)
+target_link_libraries(${executable_self} PRIVATE rclcpp::rclcpp)
+target_link_libraries(${executable_intra} PRIVATE rclcpp::rclcpp)
+target_link_libraries(${executable_loanp} PRIVATE rclcpp::rclcpp)
+target_link_libraries(${executable_stat} PRIVATE rclcpp::rclcpp)
 
 install(
   TARGETS ${executable_pub}

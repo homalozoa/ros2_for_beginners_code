@@ -9,11 +9,6 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 
-set(ROS_DISTRO $ENV{ROS_DISTRO})
-if(${ROS_DISTRO} STREQUAL "rolling")
-  add_compile_definitions(NEW_SERVICE_TEMPLATE)
-endif()
-
 set(executable_selfservice self_exec)
 set(executable_selfnode self_node)
 
@@ -29,15 +24,8 @@ add_executable(${executable_selfnode}
   src/single_node.cpp
 )
 
-ament_target_dependencies(
-  ${executable_selfservice}
-  ${dependencies}
-)
-
-ament_target_dependencies(
-  ${executable_selfnode}
-  ${dependencies}
-)
+target_link_libraries(${executable_selfservice} PRIVATE rclcpp::rclcpp)
+target_link_libraries(${executable_selfnode} PRIVATE rclcpp::rclcpp)
 
 install(
   TARGETS ${executable_selfservice}

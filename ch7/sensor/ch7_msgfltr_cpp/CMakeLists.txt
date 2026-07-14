@@ -23,8 +23,14 @@ add_executable(${executable_fltr}
   src/selfilter.cpp
 )
 
-ament_target_dependencies(${executable_fltr}
-  ${dependencies}
+if(message_filters_VERSION VERSION_GREATER_EQUAL "7.0.0")
+  target_compile_definitions(${executable_fltr} PRIVATE MESSAGE_FILTERS_HAS_RCLCPP_QOS)
+endif()
+
+target_link_libraries(${executable_fltr} PRIVATE
+  rclcpp::rclcpp
+  sensor_msgs::sensor_msgs_library
+  message_filters::message_filters
 )
 
 install(

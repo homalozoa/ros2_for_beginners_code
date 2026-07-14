@@ -32,8 +32,10 @@ add_library(${lib_alpha} SHARED
   src/pluginalpha.cpp
 )
 
-ament_target_dependencies(${lib_alpha}
-  ${dependencies}
+target_link_libraries(${lib_alpha} PUBLIC
+  ch3_plugin_base::ch3_plugin_base
+  pluginlib::pluginlib
+  rclcpp::rclcpp
 )
 
 install(

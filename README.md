@@ -8,6 +8,15 @@
 
 ## 二、开发环境配置
 
+本仓库持续集成支持以下 ROS 2 / Ubuntu 组合：
+
+- ROS 2 Jazzy / Ubuntu Noble 24.04
+- ROS 2 Lyrical / Ubuntu Resolute 26.04
+- ROS 2 Rolling / Ubuntu Resolute 26.04
+
+GitHub Actions 会分别完成依赖安装、构建和测试；具体矩阵见
+`.github/workflows/ci.yml`。
+
 为保证能够将项目代码顺利编译、运行、修改及调试，读者需要根据自身当前的软硬件开发环境，对ROS 2进行部署。
 
 由于不同操作系统的软件管理机制不同，ROS 2的开发环境搭建需要根据不同的操作系统（Linux、Windows和macOS）进行相应的配置。

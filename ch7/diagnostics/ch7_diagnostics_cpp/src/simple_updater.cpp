@@ -88,7 +88,7 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node_n = rclcpp::Node::make_shared("n_node");
-  auto exec = std::make_unique<rclcpp::executors::StaticSingleThreadedExecutor>();
+  auto exec = std::make_unique<rclcpp::executors::SingleThreadedExecutor>();
   std::default_random_engine generator;
   std::uniform_real_distribution<double> distribution(0, 150);
 

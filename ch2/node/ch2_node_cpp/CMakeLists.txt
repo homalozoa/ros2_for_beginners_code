@@ -61,42 +61,31 @@ add_executable(${executable_global_arg}
   src/global_arg.cpp
 )
 
-ament_target_dependencies(${library_node2go}
-  ${dependencies}
-)
-ament_target_dependencies(${library_getid}
-  ${dependencies}
-)
-ament_target_dependencies(${library_lifecyclenode}
-  ${dependencies}
-)
-ament_target_dependencies(${executable_node2go}
-  ${dependencies}
-)
-ament_target_dependencies(${executable_node2go2}
-  ${dependencies}
-)
-ament_target_dependencies(${executable_multinode}
-  ${dependencies}
-)
-ament_target_dependencies(${executable_multilifecyclenode}
-  ${dependencies}
-)
-ament_target_dependencies(${executable_global_arg}
-  ${dependencies}
+set(dependency_targets
+  rclcpp::rclcpp
+  rclcpp_lifecycle::rclcpp_lifecycle
 )
 
+target_link_libraries(${library_node2go} PUBLIC ${dependency_targets})
+target_link_libraries(${library_getid} PUBLIC ${dependency_targets})
+target_link_libraries(${library_lifecyclenode} PUBLIC ${dependency_targets})
+target_link_libraries(${executable_node2go} PRIVATE ${dependency_targets})
+target_link_libraries(${executable_node2go2} PRIVATE ${dependency_targets})
+target_link_libraries(${executable_multinode} PRIVATE ${dependency_targets})
+target_link_libraries(${executable_multilifecyclenode} PRIVATE ${dependency_targets})
+target_link_libraries(${executable_global_arg} PRIVATE ${dependency_targets})
+
 target_link_libraries(${executable_node2go}
-  ${library_node2go}
+  PRIVATE ${library_node2go}
 )
 target_link_libraries(${executable_node2go2}
-  ${library_node2go}
+  PRIVATE ${library_node2go}
 )
 target_link_libraries(${executable_multinode}
-  ${library_getid}
+  PRIVATE ${library_getid}
 )
 target_link_libraries(${executable_multilifecyclenode}
-  ${library_lifecyclenode}
+  PRIVATE ${library_lifecyclenode}
 )
 
 install(TARGETS

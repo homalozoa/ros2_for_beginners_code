@@ -29,12 +29,13 @@ add_executable(${executable_freqchecker}
 )
 
 
-ament_target_dependencies(${executable_simpleupdater}
-  ${dependencies}
+set(dependency_targets
+  rclcpp::rclcpp
+  diagnostic_updater::diagnostic_updater
+  sensor_msgs::sensor_msgs_library
 )
-ament_target_dependencies(${executable_freqchecker}
-  ${dependencies}
-)
+target_link_libraries(${executable_simpleupdater} PRIVATE ${dependency_targets})
+target_link_libraries(${executable_freqchecker} PRIVATE ${dependency_targets})
 
 install(
   TARGETS ${executable_simpleupdater}

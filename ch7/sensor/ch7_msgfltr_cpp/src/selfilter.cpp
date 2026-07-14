@@ -82,25 +82,33 @@ void ts_cb(
   message_ts("TS_PRESSURE", pressure->header.stamp);
 }
 
-#include "message_filters/subscriber.h"
-#include "message_filters/cache.h"
-#include "message_filters/time_synchronizer.h"
-#include "message_filters/sync_policies/approximate_time.h"
-#include "message_filters/sync_policies/exact_time.h"
-#include "message_filters/synchronizer.h"
+#include "message_filters/cache.hpp"
+#include "message_filters/subscriber.hpp"
+#include "message_filters/sync_policies/approximate_time.hpp"
+#include "message_filters/sync_policies/exact_time.hpp"
+#include "message_filters/synchronizer.hpp"
+#include "message_filters/time_synchronizer.hpp"
 
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<SelFilter>("selfilter");
 
-  message_filters::Subscriber<sensor_msgs::msg::Illuminance> sub_i(node, "sync_illuminance");
+#ifdef MESSAGE_FILTERS_HAS_RCLCPP_QOS
+  const auto subscriber_qos = rclcpp::SystemDefaultsQoS();
+#else
+  const auto subscriber_qos = rclcpp::SystemDefaultsQoS().get_rmw_qos_profile();
+#endif
+
+  message_filters::Subscriber<sensor_msgs::msg::Illuminance> sub_i(
+    node, "sync_illuminance", subscriber_qos);
   sub_i.registerCallback(illuminance_cb);
   // message_filters::Cache<sensor_msgs::msg::Illuminance> cache_i(sub_i, 10);
   // cache_i.registerCallback(illuminance_cb);
 
 
-  message_filters::Subscriber<sensor_msgs::msg::FluidPressure> sub_p(node, "sync_pressure");
+  message_filters::Subscriber<sensor_msgs::msg::FluidPressure> sub_p(
+    node, "sync_pressure", subscriber_qos);
   sub_p.registerCallback(pressure_cb);
   // message_filters::Cache<sensor_msgs::msg::FluidPressure> cache_p(10);
   // cache_p.connectInput(sub_p);
@@ -119,7 +127,7 @@ int main(int argc, char ** argv)
   app_sync.registerCallback(ts_cb);
 
 
-  auto executor_ = std::make_unique<rclcpp::executors::StaticSingleThreadedExecutor>();
+  auto executor_ = std::make_unique<rclcpp::executors::SingleThreadedExecutor>();
   executor_->add_node(node);
   executor_->spin();
   rclcpp::shutdown();

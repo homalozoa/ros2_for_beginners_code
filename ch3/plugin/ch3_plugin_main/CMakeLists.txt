@@ -27,15 +27,15 @@ set(exec_withnode run_plugin_withnode)
 add_executable(${exec_withoutnode} src/withoutnode.cpp)
 add_executable(${exec_withnode} src/withnode.cpp)
 
-ament_target_dependencies(${exec_withoutnode}
-  ch3_plugin_base
-  pluginlib
-  rclcpp
+target_link_libraries(${exec_withoutnode} PRIVATE
+  ch3_plugin_base::ch3_plugin_base
+  pluginlib::pluginlib
+  rclcpp::rclcpp
 )
-ament_target_dependencies(${exec_withnode}
-  ch3_plugin_base
-  pluginlib
-  rclcpp
+target_link_libraries(${exec_withnode} PRIVATE
+  ch3_plugin_base::ch3_plugin_base
+  pluginlib::pluginlib
+  rclcpp::rclcpp
 )
 
 install(

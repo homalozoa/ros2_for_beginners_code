@@ -1,3 +1,5 @@
+name: ROS 2 CI
+
 on:
   pull_request:
     paths-ignore:
@@ -5,24 +7,31 @@ on:
   push:
     paths-ignore:
       - '**.md'
-      
+
 jobs:
-  ci:
-    runs-on: ${{ matrix.os }}
+  build-and-test:
+    name: ROS 2 ${{ matrix.ros_distribution }} on Ubuntu ${{ matrix.ubuntu_codename }}
+    runs-on: ubuntu-latest
     container:
-      image: osrf/ros:${{ matrix.ros_distribution }}-desktop
+      image: ubuntu:${{ matrix.ubuntu_codename }}
     strategy:
-      matrix:
-        os: [ubuntu-22.04]
-        ros_distribution: [foxy, galactic, humble, jazzy, kilted, rolling]
       fail-fast: false
+      matrix:
+        include:
+          - ros_distribution: jazzy
+            ubuntu_codename: noble
+          - ros_distribution: lyrical
+            ubuntu_codename: resolute
+          - ros_distribution: rolling
+            ubuntu_codename: resolute
     steps:
-      - name: add more dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-colcon-coveragepy-result
-          sudo apt-get install -y ros-${{ matrix.ros_distribution }}-diagnostic-updater
-      - name: build and test
+      - name: Set up ROS 2
+        uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: ${{ matrix.ros_distribution }}
+
+      - name: Build and test
         uses: ros-tooling/action-ros-ci@v0.4
         with:
           target-ros2-distro: ${{ matrix.ros_distribution }}
+          coverage-result: false

@@ -19,7 +19,10 @@ endif()
 if(${ROS_DISTRO} STREQUAL "foxy" OR ${ROS_DISTRO} STREQUAL "galactic")
   add_compile_definitions(DEPRECATED_BAG_API)
 endif()
-if(${ROS_DISTRO} STREQUAL "rolling" OR ${ROS_DISTRO} STREQUAL "jazzy")
+if(${ROS_DISTRO} STREQUAL "jazzy" OR
+  ${ROS_DISTRO} STREQUAL "kilted" OR
+  ${ROS_DISTRO} STREQUAL "lyrical" OR
+  ${ROS_DISTRO} STREQUAL "rolling")
   add_compile_definitions(JAZZY_NEWER_BAG_API)
 endif()
 
@@ -41,13 +44,14 @@ add_executable(${executable_bag}
   src/operatebag.cpp
 )
 
-ament_target_dependencies(${executable_data}
-  ${dependencies}
+set(dependency_targets
+  rclcpp::rclcpp
+  rcpputils::rcpputils
+  rcutils::rcutils
+  rosbag2_cpp::rosbag2_cpp
 )
-
-ament_target_dependencies(${executable_bag}
-  ${dependencies}
-)
+target_link_libraries(${executable_data} PRIVATE ${dependency_targets})
+target_link_libraries(${executable_bag} PRIVATE ${dependency_targets})
 
 install(
   TARGETS ${executable_data}

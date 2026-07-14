@@ -21,8 +21,9 @@ add_library(${library_components} SHARED
   src/com2.cpp
 )
 
-ament_target_dependencies(${library_components}
-  ${dependencies}
+target_link_libraries(${library_components} PUBLIC
+  rclcpp::rclcpp
+  rclcpp_components::component
 )
 
 rclcpp_components_register_node(${library_components}

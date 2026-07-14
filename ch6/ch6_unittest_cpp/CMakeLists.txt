@@ -22,9 +22,7 @@ add_library(${lib_monkey} SHARED
   src/monkey.cpp
 )
 
-ament_target_dependencies(${lib_monkey}
-  ${dependencies}
-)
+target_link_libraries(${lib_monkey} PUBLIC rclcpp::rclcpp)
 
 install(
   TARGETS ${lib_monkey}
@@ -41,10 +39,8 @@ if(BUILD_TESTING)
     test/monkey_test.cpp
     TIMEOUT 20
   )
-  ament_target_dependencies(${test_monkey}
-    ${dependencies}
-  )
   target_link_libraries(${test_monkey}
+    rclcpp::rclcpp
     ${lib_monkey}
   )
 endif()

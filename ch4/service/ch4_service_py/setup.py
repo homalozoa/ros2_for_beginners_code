@@ -17,7 +17,7 @@ setup(
     maintainer_email='nx.tardis@gmail.com',
     description='ROS 2 service demo wroten in Python.',
     license='Apache-2.0',
-    tests_require=['pytest'],
+    extras_require={'test': ['pytest']},
     entry_points={
         'console_scripts': [
             'self_service = ch4_service_py.self_service:main',

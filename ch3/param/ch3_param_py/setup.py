@@ -22,7 +22,7 @@ setup(
     maintainer_email='nx.tardis@gmail.com',
     description='Package for testing parameters in Node',
     license='Apache-2.0',
-    tests_require=['pytest'],
+    extras_require={'test': ['pytest']},
     entry_points={
         'console_scripts': [
             'soliloquist = ch3_param_py.soliloquist:main',

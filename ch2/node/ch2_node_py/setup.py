@@ -17,7 +17,7 @@ setup(
     maintainer_email='nx.tardis@gmail.com',
     description='Python node demo.',
     license='Apache-2.0',
-    tests_require=['pytest'],
+    extras_require={'test': ['pytest']},
     entry_points={
         'console_scripts': [
             'node2go=ch2_node_py.node2go:main',
