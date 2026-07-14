@@ -45,7 +45,11 @@ public:
     server_ = this->create_service<rcl_interfaces::srv::GetParameters>(
       "get_para",
       std::bind(&SingleNode::service_callback, this, std::placeholders::_1, std::placeholders::_2),
+#ifdef RCLCPP_SERVICE_USES_RMW_QOS
+      rmw_qos_profile_services_default,
+#else
       rclcpp::ServicesQoS(),
+#endif
       cb_group_);
   }
 
